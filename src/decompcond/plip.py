@@ -35,6 +35,22 @@ def graph(m):
     }
 
 
+def roundtrip_heavy_view(mol):
+    """Normalize serialization-only H retention on a detached validation copy.
+
+    RDKit may keep an explicit H defining C=N stereo when reading OpenBabel SDF.
+    This audit already ignores stereochemistry; remove stereo on the copy before
+    removing H so equivalent implicit/explicit H representations compare equally.
+    The actual PLIP complex, donor hydrogens and all heavy coordinates are untouched.
+    """
+    view = Chem.Mol(mol)
+    Chem.RemoveStereochemistry(view)
+    view = Chem.RemoveHs(view)
+    if any(a.GetAtomicNum() == 1 for a in view.GetAtoms()):
+        raise ValueError("PLIP audit contains unsupported retained hydrogen")
+    return view
+
+
 def complex_pdb(mol, protein_file, destination, policy):
     """Keep all heavy coordinates; write explicit hydrogen/bond/charge information."""
     m = Chem.Mol(mol)
@@ -187,6 +203,7 @@ def plip_profile(mol, protein_file, out, policy):
     perceived = Chem.MolFromMolBlock(block, removeHs=True, sanitize=True)
     if perceived is None:
         raise ValueError("PLIP ligand graph cannot be decoded")
+    perceived = roundtrip_heavy_view(perceived)
     expected_smiles = Chem.MolToSmiles(mol, isomericSmiles=False)
     actual_smiles = Chem.MolToSmiles(perceived, isomericSmiles=False)
     if expected_smiles != actual_smiles:

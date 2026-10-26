@@ -1,0 +1,37 @@
+{
+  "parent_run": "/workspace/DecompCond/runs/feedback10",
+  "repair_run": "/workspace/DecompCond/runs/feedback10-repair01",
+  "audit_sha256": "b4005366737612d87f59f76dde60b2b554fd8383a8bb4392fa69a581eb34e7d0",
+  "status": "passed",
+  "parent_unchanged": true,
+  "verified_evaluation_count": 201,
+  "verified_teachers": [
+    {
+      "id": "6pyy_015",
+      "library_hash": "e7451a3ff99263251bfb95a69187ef13d6292e5c8fb50f068db62c17bfb15497"
+    },
+    {
+      "id": "3w54_003",
+      "library_hash": "fe7f278fb37c3efd45d0bf190a6b6e15b06ee674bd7c4e38e3abc46b9503ebfd"
+    }
+  ],
+  "changed_module": "plip.py",
+  "changed_module_sha256": "0e63dcb56e2a7d6b23ba7f7bf669e546cdb452636d68260013721b3b40a74f44",
+  "reused_generated_attempts": 220,
+  "new_generation_during_repair": 0,
+  "failed_attempt": "6pyy_015/round_002/alt_no_final_all_c1c4_end/1016/generated.json",
+  "repaired_evaluation": {
+    "status": "evaluated",
+    "structure_pass": false,
+    "atom_recovery": 0.5555555555555556,
+    "bond_recovery": 0.5,
+    "effective_recovery": 0.0,
+    "pic50": 5.51080322265625,
+    "delta_pic50": -0.306002140045166
+  },
+  "tests": {
+    "local_passed": 34,
+    "local_skipped": 2,
+    "remote_passed": 37
+  }
+}
