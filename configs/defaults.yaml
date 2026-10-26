@@ -1,0 +1,140 @@
+schema_version: 1
+data:
+  archive_dir: /opt/MolSteer/generated_datasets/hiqbind_steer_learning_s100_b20_w050/archives
+  output_dir: /workspace/DecompCond/runs/feedback10
+  teachers:
+    - id: 6pyy_015
+      target_id: 6pyy_H7S_A_402
+      node_id: single_b004_final_015
+      archive: targets_0027.tar.gz
+      archive_sha256: e237ea52cf6107896f567cb496e02042f1347bfcac8429fc235d4f59852ffa7b
+      sdf_member: targets/6pyy_H7S_A_402/results/single_w050/single/batch_004/molecules_all_built.sdf
+      protein_member: targets/6pyy_H7S_A_402/inputs/target_protein.pdb
+      ligand_member: targets/6pyy_H7S_A_402/inputs/target_ligand.sdf
+      heavy_atoms: 17
+      stored_pic50: 6.5355939865112305
+      score_property: pic50_on_rescore
+      score_tolerance: 0.0000005
+    - id: 3w54_003
+      target_id: 3w54_RNB_A_504
+      node_id: single_b000_final_003
+      archive: targets_0009.tar.gz
+      archive_sha256: 508b75edeff819407142978582d506d52ff20d86a7399085dedc42fca280c025
+      sdf_member: targets/3w54_RNB_A_504/results/single_w050/single/batch_000/molecules_all_built.sdf
+      protein_member: targets/3w54_RNB_A_504/inputs/target_protein.pdb
+      ligand_member: targets/3w54_RNB_A_504/inputs/target_ligand.sdf
+      heavy_atoms: 22
+      stored_pic50: 8.71163272857666
+      score_property: pic50_on_rescore
+      score_tolerance: 0.0000005
+sampling:
+  steps: 100
+  segment_multiple: 10
+  known_time: 1.0
+  final_epsilon: 0.0001
+  seed_count: 20
+  discovery_seed_start: 1000
+  confirmation_seed_start: 2000
+  batch_size: 5
+  trace_every: 10
+  node_count_policy: teacher
+  node_count: null
+search:
+  rounds: 10
+  paths_per_round: 5
+  candidates_per_path: 20
+  baseline_candidates: 20
+  confirmation_candidates: 20
+  proposal_repairs: 2
+  evaluation_retries: 2
+  early_stop: false
+partition: selected_connectivity
+agent:
+  base_url: https://api.deepseek.com
+  model: deepseek-flash
+  credentials:
+    mode: interactive_shell
+    env_name: DEEPSEEK_API_KEY
+    shell_executable: /bin/bash
+    shell_kind: posix
+    shell_timeout: 20
+  timeout: 300
+  api_retries: 2
+  retry_delay: 2
+  max_tokens: 16384
+  temperature: null
+  thinking: {type: enabled}
+  system_prompt: |
+    You plan complete inference-time inpainting schedules for DecompCond.
+    Return one JSON object with exactly the requested number of paths in "paths".
+    Each path has: id, segments [{start,end,active}], parents [prior path IDs],
+    evidence [provided evidence IDs], observation, change, hypothesis.
+    Use only supplied condition IDs and update indices. A condition couples its
+    atom elements and reference XYZ; selected bonds are explicit. You may switch
+    conditions off, re-enter them, combine them, or leave windows empty.
+    Do not edit coordinates, molecular attributes, thresholds, seeds or budgets.
+    Review EVERY previous-round strategy, failures and historical best. Prefer
+    complementary, testable changes; preserve useful schedules through variants.
+    Cite metric evidence IDs in concise design rationales. Do not claim an
+    unexecuted strategy has improved results. Do not output hidden reasoning.
+    Distinct segment spellings with identical per-step activity are duplicates.
+    Respect the supplied grid and cover all updates without gaps or overlaps.
+backend:
+  source_dir: /opt/MolSteer/flowr_root
+  checkpoint: /root/private_data/MolSteer/flowr_root/checkpoints/flowr_root_v2.ckpt
+  checkpoint_sha256: f28e863b2b208718f3d3f85f09837c2f907a71123436db6f98a25d2f1858b6a0
+  device: cuda:0
+  threads: 4
+  matmul_precision: high
+  affinity_time: 0.9999
+  model_args:
+    arch: pocket
+    pocket_type: holo
+    gpus: 1
+    num_workers: 0
+    batch_cost: 20
+    cut_pocket: true
+    pocket_cutoff: 7.0
+    max_pocket_size: 1000
+    min_pocket_size: 10
+    protonate_pocket: false
+    add_hs: false
+    use_pdbfixer: false
+    kekulize: false
+    graph_inpainting: null
+    sample_mol_sizes: false
+    virtual_atom_p: 0.0
+    corrector_iters: 0
+    coord_noise_scale: 0.0
+    ligand_valence_repair: false
+    cat_noise_euler_guard: false
+    sc_recycle_steps: 1
+evaluation:
+  atom_weight: 0.5
+  bond_weight: 0.5
+  connectivity_factor: 1.3
+  force_field: MMFF94s
+  minimization_steps: 1000
+  force_tolerance: 0.0001
+  energy_tolerance: 0.000001
+  pb_config: configs/posebusters.yaml
+  plip:
+    ligand_resname: LIG
+    ligand_chain: Z
+    ligand_resnum: 1
+    nohydro: true
+    nofix: true
+    maxthreads: 1
+    coordinate_tolerance: 0.001
+    mapping_tolerance: 0.01
+    element_mismatch_penalty: 1000000.0
+    thresholds: {}
+remote:
+  host: ssh.zzai.scnet.cn
+  port: 11099
+  user: root
+  password_env: DECOMPCOND_SSH_PASSWORD
+  python: /opt/miniforge3/envs/molsteer-flowr-dtk/bin/python
+  workdir: /workspace/DecompCond/repository
+  environment:
+    LD_LIBRARY_PATH: /opt/miniforge3/envs/molsteer-flowr-dtk/lib:/opt/hyhal/lib:/opt/dtk/dcc/gcvm/lib:/opt/dtk/hip/lib:/opt/dtk/llvm/lib:/opt/dtk/lib:/opt/dtk/lib64:/opt/hyhal/lib64:/opt/dtk/dushmem/lib:/opt/dtk/opencl/lib

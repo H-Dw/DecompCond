@@ -1,0 +1,12 @@
+extends: defaults.yaml
+data:
+  output_dir: /workspace/DecompCond/runs/interface-smoke-v2
+sampling:
+  seed_count: 1
+  batch_size: 1
+search:
+  rounds: 1
+  paths_per_round: 2
+  candidates_per_path: 1
+  baseline_candidates: 1
+  confirmation_candidates: 1

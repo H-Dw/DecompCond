@@ -1,0 +1,3251 @@
+{
+  "kind": "real_ROOT_DeepSeek_interface_validation_not_formal_experiment",
+  "config_hash": "cb60d7aba74230ef2f01f0d4d97bcdf19bcca93e2576d89f765ca479656e3a00",
+  "algorithm_sha256": {
+    "__init__.py": "74f72b8ac7021ce025a3b5ee12865b98aafad852f5534e1cec547bdc5a066152",
+    "__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+    "agent.py": "ba9dd68a695db05e22fbafd45b72fbb2f5e09d9230697bdcb4066a5d06af82b3",
+    "backends/__init__.py": "404cfb597142d4a890521549c89c58c1ae968edce4e0d8f4df7a663aeeac2ed8",
+    "backends/root.py": "146c1b0eeac356b2771659e41164fac8fde5d61fc94c5a0b0af5834c1f1f250e",
+    "cli.py": "b0582c2e49b664ebe4623ab63e88bb10ca9753746c6acf93c8428c136c5387da",
+    "conditions.py": "2564ed183c85d6fc1086e27e3c7403ede515fe3e4ff9ff59772130fe4d063b41",
+    "config.py": "8c0f19c2e224f71724d0380ca7e79bccb0ce86e8a24e0f614cc1d11649317d4b",
+    "credentials.py": "c7f9efee9cc71c1490a9938603a33a7043e85a877b132ba1c3ac8b9b905aebd1",
+    "engine.py": "68567ddb5c3af9ebb7098551d76726a2636a30d2eff687f33c04e2c54835e9c1",
+    "evaluation.py": "f7a11f463133515d604ed3df8c0932afa8b39ba64fab25cb5c0aff5c2c5a4e7d",
+    "feedback.py": "5bdf5f591809eeaccf7081b96d07ab712edb15190dcea73a467f09489ed7928f",
+    "inpainting.py": "05b7db7ffd9caa9fd4792e739a6b4481e5bf0a650350c48f7ef5a17150299c9c",
+    "io.py": "ad377e70aef3a96b2874d29a23e4faa41a517ab7ecb5de3b2fea279ac4c80218",
+    "launch.py": "104f35bda14bb5f41af4d19ad502b788093c1c1d33959a2938cea768f6dabf82",
+    "paths.py": "6b9d60762733f81ddf2638a62d53ec275052de3ef9eb3e12f881b50841546e76",
+    "plip.py": "ffeddb5525836d50b4306bffec9528657bb574b42ce3cf279a30ba781e94d041",
+    "report.py": "dfbf99c36ac2f9901e2c9a493191febeb38e603a38add5186815b0b92aee6cf8"
+  },
+  "checkpoint_sha256": "f28e863b2b208718f3d3f85f09837c2f907a71123436db6f98a25d2f1858b6a0",
+  "device": "BW",
+  "torch": "2.9.0",
+  "formal_experiment_started": false,
+  "teachers": {
+    "3w54_003": {
+      "target_id": "3w54_RNB_A_504",
+      "node_id": "single_b000_final_003",
+      "library_hash": "fe7f278fb37c3efd45d0bf190a6b6e15b06ee674bd7c4e38e3abc46b9503ebfd",
+      "selected_atom_ids": [
+        1,
+        5,
+        6,
+        9,
+        10,
+        11,
+        12,
+        15,
+        20
+      ],
+      "selected_bond_count": 3,
+      "groups": {
+        "C1": {
+          "atom_ids": [
+            1
+          ],
+          "bond_ids": []
+        },
+        "C2": {
+          "atom_ids": [
+            5,
+            10,
+            12,
+            15
+          ],
+          "bond_ids": [
+            "B:12:15",
+            "B:5:10",
+            "B:5:12"
+          ]
+        },
+        "C3": {
+          "atom_ids": [
+            6
+          ],
+          "bond_ids": []
+        },
+        "C4": {
+          "atom_ids": [
+            9
+          ],
+          "bond_ids": []
+        },
+        "C5": {
+          "atom_ids": [
+            11
+          ],
+          "bond_ids": []
+        },
+        "C6": {
+          "atom_ids": [
+            20
+          ],
+          "bond_ids": []
+        }
+      },
+      "baseline": {
+        "path": {
+          "id": "baseline",
+          "segments": [
+            {
+              "start": 0,
+              "end": 100,
+              "active": [
+                "C1",
+                "C2",
+                "C3",
+                "C4",
+                "C5",
+                "C6"
+              ]
+            }
+          ],
+          "parents": [],
+          "evidence": [
+            "condition_library"
+          ],
+          "observation": "All selected facts",
+          "change": "Static control",
+          "hypothesis": "Measure frozen ROOT inpainting capability",
+          "schedule_hash": "c7e87285120c3f77685be73c74352f3831d943592a8951aff2ef181d9de30201"
+        },
+        "summary": {
+          "path_id": "baseline",
+          "schedule_hash": "c7e87285120c3f77685be73c74352f3831d943592a8951aff2ef181d9de30201",
+          "attempts": 5,
+          "outcomes": {
+            "evaluated": 1,
+            "chemical_invalid": 4
+          },
+          "structure_pass_count": 0,
+          "exact_recovery_count": 0,
+          "J": 0.0,
+          "valid_delta_pic50": {
+            "n": 0,
+            "mean": null,
+            "std": null,
+            "min": null,
+            "max": null
+          },
+          "distributions": {
+            "atom_recovery": {
+              "n": 5,
+              "mean": 0.11111111111111112,
+              "std": 0.24845199749997665,
+              "min": 0.0,
+              "max": 0.5555555555555556
+            },
+            "bond_recovery": {
+              "n": 5,
+              "mean": 0.0,
+              "std": 0.0,
+              "min": 0.0,
+              "max": 0.0
+            },
+            "recovery": {
+              "n": 5,
+              "mean": 0.05555555555555556,
+              "std": 0.12422599874998833,
+              "min": 0.0,
+              "max": 0.2777777777777778
+            },
+            "selected_rmsd_A": {
+              "n": 1,
+              "mean": 1.214098413472421,
+              "std": 0.0,
+              "min": 1.214098413472421,
+              "max": 1.214098413472421
+            },
+            "selected_max_displacement_A": {
+              "n": 1,
+              "mean": 2.609504483320979,
+              "std": 0.0,
+              "min": 2.609504483320979,
+              "max": 2.609504483320979
+            }
+          },
+          "exposure": {
+            "active_steps": {
+              "C1": 100,
+              "C2": 100,
+              "C3": 100,
+              "C4": 100,
+              "C5": 100,
+              "C6": 100
+            },
+            "empty_steps": 0,
+            "entries": {
+              "C1": 1,
+              "C2": 1,
+              "C3": 1,
+              "C4": 1,
+              "C5": 1,
+              "C6": 1
+            },
+            "reentries": {
+              "C1": 0,
+              "C2": 0,
+              "C3": 0,
+              "C4": 0,
+              "C5": 0,
+              "C6": 0
+            },
+            "releases": {
+              "C1": 0,
+              "C2": 0,
+              "C3": 0,
+              "C4": 0,
+              "C5": 0,
+              "C6": 0
+            }
+          },
+          "condition_metrics": {
+            "C1": {
+              "atom_hits": 0,
+              "atom_count": 1,
+              "bond_hits": 0,
+              "bond_count": 0,
+              "reported_attempts": 1,
+              "unavailable_attempts": 4
+            },
+            "C2": {
+              "atom_hits": 2,
+              "atom_count": 4,
+              "bond_hits": 0,
+              "bond_count": 3,
+              "reported_attempts": 1,
+              "unavailable_attempts": 4
+            },
+            "C3": {
+              "atom_hits": 0,
+              "atom_count": 1,
+              "bond_hits": 0,
+              "bond_count": 0,
+              "reported_attempts": 1,
+              "unavailable_attempts": 4
+            },
+            "C4": {
+              "atom_hits": 1,
+              "atom_count": 1,
+              "bond_hits": 0,
+              "bond_count": 0,
+              "reported_attempts": 1,
+              "unavailable_attempts": 4
+            },
+            "C5": {
+              "atom_hits": 1,
+              "atom_count": 1,
+              "bond_hits": 0,
+              "bond_count": 0,
+              "reported_attempts": 1,
+              "unavailable_attempts": 4
+            },
+            "C6": {
+              "atom_hits": 1,
+              "atom_count": 1,
+              "bond_hits": 0,
+              "bond_count": 0,
+              "reported_attempts": 1,
+              "unavailable_attempts": 4
+            }
+          },
+          "pb_failures": {
+            "all_atoms_connected": 1,
+            "bond_lengths": 1,
+            "bond_angles": 1,
+            "internal_steric_clash": 1
+          },
+          "strain": {
+            "n": 1,
+            "mean": 647.1953770355899,
+            "std": 0.0,
+            "min": 647.1953770355899,
+            "max": 647.1953770355899
+          },
+          "strain_statuses": {
+            "ok": 1
+          },
+          "plip_recall": {
+            "n": 1,
+            "mean": 0.3,
+            "std": 0.0,
+            "min": 0.3,
+            "max": 0.3
+          },
+          "reentry_displacement_A": {
+            "n": 1,
+            "mean": 7.720476150512695,
+            "std": 0.0,
+            "min": 7.720476150512695,
+            "max": 7.720476150512695
+          }
+        },
+        "stage": "baseline"
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "records": [
+            {
+              "path": {
+                "id": "staged_anchors",
+                "segments": [
+                  {
+                    "start": 0,
+                    "end": 20,
+                    "active": [
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  },
+                  {
+                    "start": 20,
+                    "end": 50,
+                    "active": [
+                      "C2",
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  },
+                  {
+                    "start": 50,
+                    "end": 70,
+                    "active": [
+                      "C1",
+                      "C2",
+                      "C3",
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  },
+                  {
+                    "start": 70,
+                    "end": 100,
+                    "active": [
+                      "C2",
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  }
+                ],
+                "parents": [
+                  "baseline"
+                ],
+                "evidence": [
+                  "metrics:baseline",
+                  "condition_library"
+                ],
+                "observation": "metrics:baseline shows 4/5 chemical-invalid attempts, structure_pass 0, bond recovery 0.0, strain 647.2; condition_library shows C4/C5/C6 each atom-hit 1/1 while C2 has 2/4 atom hits and 0/3 bond hits.",
+                "change": "Stage reliable singleton anchors first, add bond-rich C2 with anchors, briefly pulse unreliable C1/C3, then release C1/C3 while retaining C2 and anchors.",
+                "hypothesis": "Anchoring before C2 and limiting C1/C3 exposure may reduce early clash/strain and allow selected C2 bonds to form; this is a testable schedule, not a claimed improvement.",
+                "schedule_hash": "9f11274eae092dcf4f67372a2a5070e493980248e75317a9ca464b587342a78c"
+              },
+              "summary": {
+                "path_id": "staged_anchors",
+                "schedule_hash": "9f11274eae092dcf4f67372a2a5070e493980248e75317a9ca464b587342a78c",
+                "attempts": 2,
+                "outcomes": {
+                  "chemical_invalid": 1,
+                  "evaluated": 1
+                },
+                "structure_pass_count": 0,
+                "exact_recovery_count": 0,
+                "J": 0.0,
+                "valid_delta_pic50": {
+                  "n": 0,
+                  "mean": null,
+                  "std": null,
+                  "min": null,
+                  "max": null
+                },
+                "distributions": {
+                  "atom_recovery": {
+                    "n": 2,
+                    "mean": 0.3333333333333333,
+                    "std": 0.4714045207910317,
+                    "min": 0.0,
+                    "max": 0.6666666666666666
+                  },
+                  "bond_recovery": {
+                    "n": 2,
+                    "mean": 0.16666666666666666,
+                    "std": 0.23570226039551584,
+                    "min": 0.0,
+                    "max": 0.3333333333333333
+                  },
+                  "recovery": {
+                    "n": 2,
+                    "mean": 0.25,
+                    "std": 0.3535533905932738,
+                    "min": 0.0,
+                    "max": 0.5
+                  },
+                  "selected_rmsd_A": {
+                    "n": 1,
+                    "mean": 1.340892725304066,
+                    "std": 0.0,
+                    "min": 1.340892725304066,
+                    "max": 1.340892725304066
+                  },
+                  "selected_max_displacement_A": {
+                    "n": 1,
+                    "mean": 2.085521544716865,
+                    "std": 0.0,
+                    "min": 2.085521544716865,
+                    "max": 2.085521544716865
+                  }
+                },
+                "exposure": {
+                  "active_steps": {
+                    "C1": 20,
+                    "C2": 80,
+                    "C3": 20,
+                    "C4": 100,
+                    "C5": 100,
+                    "C6": 100
+                  },
+                  "empty_steps": 0,
+                  "entries": {
+                    "C1": 1,
+                    "C2": 1,
+                    "C3": 1,
+                    "C4": 1,
+                    "C5": 1,
+                    "C6": 1
+                  },
+                  "reentries": {
+                    "C1": 0,
+                    "C2": 0,
+                    "C3": 0,
+                    "C4": 0,
+                    "C5": 0,
+                    "C6": 0
+                  },
+                  "releases": {
+                    "C1": 1,
+                    "C2": 0,
+                    "C3": 1,
+                    "C4": 0,
+                    "C5": 0,
+                    "C6": 0
+                  }
+                },
+                "condition_metrics": {
+                  "C1": {
+                    "atom_hits": 1,
+                    "atom_count": 1,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 1,
+                    "unavailable_attempts": 1
+                  },
+                  "C2": {
+                    "atom_hits": 2,
+                    "atom_count": 4,
+                    "bond_hits": 1,
+                    "bond_count": 3,
+                    "reported_attempts": 1,
+                    "unavailable_attempts": 1
+                  },
+                  "C3": {
+                    "atom_hits": 1,
+                    "atom_count": 1,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 1,
+                    "unavailable_attempts": 1
+                  },
+                  "C4": {
+                    "atom_hits": 1,
+                    "atom_count": 1,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 1,
+                    "unavailable_attempts": 1
+                  },
+                  "C5": {
+                    "atom_hits": 1,
+                    "atom_count": 1,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 1,
+                    "unavailable_attempts": 1
+                  },
+                  "C6": {
+                    "atom_hits": 0,
+                    "atom_count": 1,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 1,
+                    "unavailable_attempts": 1
+                  }
+                },
+                "pb_failures": {
+                  "bond_lengths": 1,
+                  "internal_energy": 1,
+                  "minimum_distance_to_protein": 1
+                },
+                "strain": {
+                  "n": 1,
+                  "mean": 609.9593674278523,
+                  "std": 0.0,
+                  "min": 609.9593674278523,
+                  "max": 609.9593674278523
+                },
+                "strain_statuses": {
+                  "ok": 1
+                },
+                "plip_recall": {
+                  "n": 1,
+                  "mean": 0.1,
+                  "std": 0.0,
+                  "min": 0.1,
+                  "max": 0.1
+                },
+                "reentry_displacement_A": {
+                  "n": 4,
+                  "mean": 5.069196820259094,
+                  "std": 3.4527946154962894,
+                  "min": 0.0,
+                  "max": 7.630582809448242
+                }
+              },
+              "stage": "round_001"
+            },
+            {
+              "path": {
+                "id": "bond_seed_relax",
+                "segments": [
+                  {
+                    "start": 0,
+                    "end": 20,
+                    "active": [
+                      "C2"
+                    ]
+                  },
+                  {
+                    "start": 20,
+                    "end": 40,
+                    "active": [
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  },
+                  {
+                    "start": 40,
+                    "end": 60,
+                    "active": [
+                      "C2",
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  },
+                  {
+                    "start": 60,
+                    "end": 80,
+                    "active": [
+                      "C1",
+                      "C3",
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  },
+                  {
+                    "start": 80,
+                    "end": 100,
+                    "active": [
+                      "C1",
+                      "C2",
+                      "C3",
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  }
+                ],
+                "parents": [
+                  "baseline"
+                ],
+                "evidence": [
+                  "metrics:baseline",
+                  "condition_library"
+                ],
+                "observation": "metrics:baseline reports C2 atom hits 2/4 but bond hits 0/3 under full 100-step exposure, with 4/5 chemical-invalid attempts and high strain.",
+                "change": "Seed C2 alone to expose selected bond constraints, relax with reliable anchors, re-enter C2 with anchors, release C2 briefly for C1/C3, then finish with the full condition set.",
+                "hypothesis": "Isolating C2 early and using staged release/re-entry may reduce persistent strain and give explicit C2 bonds an independent formation window; testable only.",
+                "schedule_hash": "b023c8fc3d01d95441cf7b65f740376872bf3c0d92b21449de6bf72cca17b6dd"
+              },
+              "summary": {
+                "path_id": "bond_seed_relax",
+                "schedule_hash": "b023c8fc3d01d95441cf7b65f740376872bf3c0d92b21449de6bf72cca17b6dd",
+                "attempts": 2,
+                "outcomes": {
+                  "evaluated": 2
+                },
+                "structure_pass_count": 2,
+                "exact_recovery_count": 0,
+                "J": 0.41666666666666663,
+                "valid_delta_pic50": {
+                  "n": 2,
+                  "mean": -2.2554409503936768,
+                  "std": 0.38977708960184076,
+                  "min": -2.531054973602295,
+                  "max": -1.9798269271850586
+                },
+                "distributions": {
+                  "atom_recovery": {
+                    "n": 2,
+                    "mean": 0.8333333333333333,
+                    "std": 0.23570226039551587,
+                    "min": 0.6666666666666666,
+                    "max": 1.0
+                  },
+                  "bond_recovery": {
+                    "n": 2,
+                    "mean": 0.0,
+                    "std": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "recovery": {
+                    "n": 2,
+                    "mean": 0.41666666666666663,
+                    "std": 0.11785113019775793,
+                    "min": 0.3333333333333333,
+                    "max": 0.5
+                  },
+                  "selected_rmsd_A": {
+                    "n": 2,
+                    "mean": 1.802408389011556,
+                    "std": 0.09867125809860981,
+                    "min": 1.732637273301821,
+                    "max": 1.872179504721291
+                  },
+                  "selected_max_displacement_A": {
+                    "n": 2,
+                    "mean": 3.0162139016541407,
+                    "std": 0.7308964068421435,
+                    "min": 2.4993920960311793,
+                    "max": 3.533035707277102
+                  }
+                },
+                "exposure": {
+                  "active_steps": {
+                    "C1": 40,
+                    "C2": 60,
+                    "C3": 40,
+                    "C4": 80,
+                    "C5": 80,
+                    "C6": 80
+                  },
+                  "empty_steps": 0,
+                  "entries": {
+                    "C1": 1,
+                    "C2": 3,
+                    "C3": 1,
+                    "C4": 1,
+                    "C5": 1,
+                    "C6": 1
+                  },
+                  "reentries": {
+                    "C1": 0,
+                    "C2": 2,
+                    "C3": 0,
+                    "C4": 0,
+                    "C5": 0,
+                    "C6": 0
+                  },
+                  "releases": {
+                    "C1": 0,
+                    "C2": 2,
+                    "C3": 0,
+                    "C4": 0,
+                    "C5": 0,
+                    "C6": 0
+                  }
+                },
+                "condition_metrics": {
+                  "C1": {
+                    "atom_hits": 1,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C2": {
+                    "atom_hits": 8,
+                    "atom_count": 8,
+                    "bond_hits": 0,
+                    "bond_count": 6,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C3": {
+                    "atom_hits": 2,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C4": {
+                    "atom_hits": 2,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C5": {
+                    "atom_hits": 1,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C6": {
+                    "atom_hits": 1,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  }
+                },
+                "pb_failures": {},
+                "strain": {
+                  "n": 2,
+                  "mean": 212.29176735509677,
+                  "std": 25.43256141844358,
+                  "min": 194.30823071317195,
+                  "max": 230.27530399702158
+                },
+                "strain_statuses": {
+                  "ok": 2
+                },
+                "plip_recall": {
+                  "n": 2,
+                  "mean": 0.15000000000000002,
+                  "std": 0.07071067811865475,
+                  "min": 0.1,
+                  "max": 0.2
+                },
+                "reentry_displacement_A": {
+                  "n": 10,
+                  "mean": 3.652050423622131,
+                  "std": 2.9617901381763274,
+                  "min": 0.47737109661102295,
+                  "max": 8.302154541015625
+                }
+              },
+              "stage": "round_001"
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "records": [
+            {
+              "path": {
+                "id": "c2_continuous_anchor_tail",
+                "segments": [
+                  {
+                    "start": 0,
+                    "end": 40,
+                    "active": [
+                      "C2"
+                    ]
+                  },
+                  {
+                    "start": 40,
+                    "end": 60,
+                    "active": [
+                      "C2",
+                      "C4"
+                    ]
+                  },
+                  {
+                    "start": 60,
+                    "end": 80,
+                    "active": [
+                      "C2",
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  },
+                  {
+                    "start": 80,
+                    "end": 100,
+                    "active": [
+                      "C1",
+                      "C2",
+                      "C3",
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  }
+                ],
+                "parents": [
+                  "bond_seed_relax"
+                ],
+                "evidence": [
+                  "metrics:bond_seed_relax",
+                  "metrics:baseline",
+                  "condition_library"
+                ],
+                "observation": "metrics:bond_seed_relax shows C2 atom recovery perfect (8/8 atom hits) but C2 bond hits 0/6, with structure_pass 2/2 and strain mean 212.3; metrics:baseline shows full-set C1/C3 exposure gave 4/5 chemical-invalid attempts and 0 bond recovery.",
+                "change": "Keep C2 continuously active from 0-100, lengthen the initial C2-only window to 40 steps, add C4 at 40-60, add C5/C6 at 60-80, and introduce unreliable C1/C3 only in the final 20 steps.",
+                "hypothesis": "Continuous C2 exposure plus delayed C1/C3 may give the selected C2 bonds an uninterrupted formation window while preserving anchor relaxation and final atom recovery; testable only, not claimed as an improvement.",
+                "schedule_hash": "2f9d1512c97526b503424d98c980fb523503368ddae994a47d7fa48a49a9e399"
+              },
+              "summary": {
+                "path_id": "c2_continuous_anchor_tail",
+                "schedule_hash": "2f9d1512c97526b503424d98c980fb523503368ddae994a47d7fa48a49a9e399",
+                "attempts": 2,
+                "outcomes": {
+                  "chemical_invalid": 2
+                },
+                "structure_pass_count": 0,
+                "exact_recovery_count": 0,
+                "J": 0.0,
+                "valid_delta_pic50": {
+                  "n": 0,
+                  "mean": null,
+                  "std": null,
+                  "min": null,
+                  "max": null
+                },
+                "distributions": {
+                  "atom_recovery": {
+                    "n": 2,
+                    "mean": 0.0,
+                    "std": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "bond_recovery": {
+                    "n": 2,
+                    "mean": 0.0,
+                    "std": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "recovery": {
+                    "n": 2,
+                    "mean": 0.0,
+                    "std": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "selected_rmsd_A": {
+                    "n": 0,
+                    "mean": null,
+                    "std": null,
+                    "min": null,
+                    "max": null
+                  },
+                  "selected_max_displacement_A": {
+                    "n": 0,
+                    "mean": null,
+                    "std": null,
+                    "min": null,
+                    "max": null
+                  }
+                },
+                "exposure": {
+                  "active_steps": {
+                    "C1": 20,
+                    "C2": 100,
+                    "C3": 20,
+                    "C4": 60,
+                    "C5": 40,
+                    "C6": 40
+                  },
+                  "empty_steps": 0,
+                  "entries": {
+                    "C1": 1,
+                    "C2": 1,
+                    "C3": 1,
+                    "C4": 1,
+                    "C5": 1,
+                    "C6": 1
+                  },
+                  "reentries": {
+                    "C1": 0,
+                    "C2": 0,
+                    "C3": 0,
+                    "C4": 0,
+                    "C5": 0,
+                    "C6": 0
+                  },
+                  "releases": {
+                    "C1": 0,
+                    "C2": 0,
+                    "C3": 0,
+                    "C4": 0,
+                    "C5": 0,
+                    "C6": 0
+                  }
+                },
+                "condition_metrics": {
+                  "C1": {
+                    "atom_hits": 0,
+                    "atom_count": 0,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 0,
+                    "unavailable_attempts": 2
+                  },
+                  "C2": {
+                    "atom_hits": 0,
+                    "atom_count": 0,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 0,
+                    "unavailable_attempts": 2
+                  },
+                  "C3": {
+                    "atom_hits": 0,
+                    "atom_count": 0,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 0,
+                    "unavailable_attempts": 2
+                  },
+                  "C4": {
+                    "atom_hits": 0,
+                    "atom_count": 0,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 0,
+                    "unavailable_attempts": 2
+                  },
+                  "C5": {
+                    "atom_hits": 0,
+                    "atom_count": 0,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 0,
+                    "unavailable_attempts": 2
+                  },
+                  "C6": {
+                    "atom_hits": 0,
+                    "atom_count": 0,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 0,
+                    "unavailable_attempts": 2
+                  }
+                },
+                "pb_failures": {},
+                "strain": {
+                  "n": 0,
+                  "mean": null,
+                  "std": null,
+                  "min": null,
+                  "max": null
+                },
+                "strain_statuses": {},
+                "plip_recall": {
+                  "n": 0,
+                  "mean": null,
+                  "std": null,
+                  "min": null,
+                  "max": null
+                },
+                "reentry_displacement_A": {
+                  "n": 0,
+                  "mean": null,
+                  "std": null,
+                  "min": null,
+                  "max": null
+                }
+              },
+              "stage": "round_002"
+            },
+            {
+              "path": {
+                "id": "anchor_precondition_late_c2_window",
+                "segments": [
+                  {
+                    "start": 0,
+                    "end": 20,
+                    "active": [
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  },
+                  {
+                    "start": 20,
+                    "end": 40,
+                    "active": [
+                      "C2",
+                      "C4"
+                    ]
+                  },
+                  {
+                    "start": 40,
+                    "end": 60,
+                    "active": [
+                      "C2",
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  },
+                  {
+                    "start": 60,
+                    "end": 80,
+                    "active": [
+                      "C2"
+                    ]
+                  },
+                  {
+                    "start": 80,
+                    "end": 100,
+                    "active": [
+                      "C1",
+                      "C2",
+                      "C3",
+                      "C4",
+                      "C5",
+                      "C6"
+                    ]
+                  }
+                ],
+                "parents": [
+                  "staged_anchors",
+                  "bond_seed_relax"
+                ],
+                "evidence": [
+                  "metrics:staged_anchors",
+                  "metrics:bond_seed_relax",
+                  "condition_library"
+                ],
+                "observation": "metrics:staged_anchors (anchor-first with a brief full-set pulse) had structure_pass 0 but one C2 bond hit, while metrics:bond_seed_relax had structure_pass 2/2 but C2 bond hits 0/6 under a C2-first schedule; metrics:bond_seed_relax also shows C4 2/2, C5 1/2, C6 1/2 atom hits.",
+                "change": "Start with C4/C5/C6 anchor relaxation, add C2 with C4, expand to C5/C6, then isolate C2 alone for 20 steps as a late bond window before the final full set.",
+                "hypothesis": "Anchor-first preconditioning followed by a late C2-only window may improve selected C2 bond formation relative to the early C2-first schedule in metrics:bond_seed_relax; testable only and complementary to the continuous-C2 variant.",
+                "schedule_hash": "4000ca355f9a5fe49143af732f5d31438667f5f3c6c32c25fa8e685adbe3c4b0"
+              },
+              "summary": {
+                "path_id": "anchor_precondition_late_c2_window",
+                "schedule_hash": "4000ca355f9a5fe49143af732f5d31438667f5f3c6c32c25fa8e685adbe3c4b0",
+                "attempts": 2,
+                "outcomes": {
+                  "evaluated": 2
+                },
+                "structure_pass_count": 0,
+                "exact_recovery_count": 0,
+                "J": 0.0,
+                "valid_delta_pic50": {
+                  "n": 0,
+                  "mean": null,
+                  "std": null,
+                  "min": null,
+                  "max": null
+                },
+                "distributions": {
+                  "atom_recovery": {
+                    "n": 2,
+                    "mean": 0.7777777777777778,
+                    "std": 0.31426968052735443,
+                    "min": 0.5555555555555556,
+                    "max": 1.0
+                  },
+                  "bond_recovery": {
+                    "n": 2,
+                    "mean": 0.16666666666666666,
+                    "std": 0.23570226039551584,
+                    "min": 0.0,
+                    "max": 0.3333333333333333
+                  },
+                  "recovery": {
+                    "n": 2,
+                    "mean": 0.4722222222222222,
+                    "std": 0.27498597046143514,
+                    "min": 0.2777777777777778,
+                    "max": 0.6666666666666666
+                  },
+                  "selected_rmsd_A": {
+                    "n": 2,
+                    "mean": 1.7053693868489797,
+                    "std": 0.1691175897331457,
+                    "min": 1.5857851923307478,
+                    "max": 1.8249535813672113
+                  },
+                  "selected_max_displacement_A": {
+                    "n": 2,
+                    "mean": 2.7487923112255026,
+                    "std": 0.020567728049854336,
+                    "min": 2.73424873124785,
+                    "max": 2.7633358912031554
+                  }
+                },
+                "exposure": {
+                  "active_steps": {
+                    "C1": 20,
+                    "C2": 80,
+                    "C3": 20,
+                    "C4": 80,
+                    "C5": 60,
+                    "C6": 60
+                  },
+                  "empty_steps": 0,
+                  "entries": {
+                    "C1": 1,
+                    "C2": 1,
+                    "C3": 1,
+                    "C4": 2,
+                    "C5": 3,
+                    "C6": 3
+                  },
+                  "reentries": {
+                    "C1": 0,
+                    "C2": 0,
+                    "C3": 0,
+                    "C4": 1,
+                    "C5": 2,
+                    "C6": 2
+                  },
+                  "releases": {
+                    "C1": 0,
+                    "C2": 0,
+                    "C3": 0,
+                    "C4": 1,
+                    "C5": 2,
+                    "C6": 2
+                  }
+                },
+                "condition_metrics": {
+                  "C1": {
+                    "atom_hits": 2,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C2": {
+                    "atom_hits": 6,
+                    "atom_count": 8,
+                    "bond_hits": 1,
+                    "bond_count": 6,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C3": {
+                    "atom_hits": 1,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C4": {
+                    "atom_hits": 2,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C5": {
+                    "atom_hits": 2,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C6": {
+                    "atom_hits": 1,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  }
+                },
+                "pb_failures": {
+                  "bond_lengths": 2,
+                  "bond_angles": 1,
+                  "internal_energy": 1
+                },
+                "strain": {
+                  "n": 2,
+                  "mean": 680.3124604674016,
+                  "std": 718.2578433575592,
+                  "min": 172.4274687888465,
+                  "max": 1188.1974521459567
+                },
+                "strain_statuses": {
+                  "ok": 2
+                },
+                "plip_recall": {
+                  "n": 2,
+                  "mean": 0.1,
+                  "std": 0.1414213562373095,
+                  "min": 0.0,
+                  "max": 0.2
+                },
+                "reentry_displacement_A": {
+                  "n": 10,
+                  "mean": 3.6483438536524773,
+                  "std": 3.4030225409396655,
+                  "min": 0.0,
+                  "max": 7.73460578918457
+                }
+              },
+              "stage": "round_002"
+            }
+          ]
+        }
+      ],
+      "winner": "bond_seed_relax",
+      "confirmation": [
+        {
+          "path": {
+            "id": "bond_seed_relax",
+            "segments": [
+              {
+                "start": 0,
+                "end": 20,
+                "active": [
+                  "C2"
+                ]
+              },
+              {
+                "start": 20,
+                "end": 40,
+                "active": [
+                  "C4",
+                  "C5",
+                  "C6"
+                ]
+              },
+              {
+                "start": 40,
+                "end": 60,
+                "active": [
+                  "C2",
+                  "C4",
+                  "C5",
+                  "C6"
+                ]
+              },
+              {
+                "start": 60,
+                "end": 80,
+                "active": [
+                  "C1",
+                  "C3",
+                  "C4",
+                  "C5",
+                  "C6"
+                ]
+              },
+              {
+                "start": 80,
+                "end": 100,
+                "active": [
+                  "C1",
+                  "C2",
+                  "C3",
+                  "C4",
+                  "C5",
+                  "C6"
+                ]
+              }
+            ],
+            "parents": [
+              "baseline"
+            ],
+            "evidence": [
+              "metrics:baseline",
+              "condition_library"
+            ],
+            "observation": "metrics:baseline reports C2 atom hits 2/4 but bond hits 0/3 under full 100-step exposure, with 4/5 chemical-invalid attempts and high strain.",
+            "change": "Seed C2 alone to expose selected bond constraints, relax with reliable anchors, re-enter C2 with anchors, release C2 briefly for C1/C3, then finish with the full condition set.",
+            "hypothesis": "Isolating C2 early and using staged release/re-entry may reduce persistent strain and give explicit C2 bonds an independent formation window; testable only.",
+            "schedule_hash": "b023c8fc3d01d95441cf7b65f740376872bf3c0d92b21449de6bf72cca17b6dd"
+          },
+          "summary": {
+            "path_id": "bond_seed_relax",
+            "schedule_hash": "b023c8fc3d01d95441cf7b65f740376872bf3c0d92b21449de6bf72cca17b6dd",
+            "attempts": 2,
+            "outcomes": {
+              "evaluated": 2
+            },
+            "structure_pass_count": 0,
+            "exact_recovery_count": 0,
+            "J": 0.0,
+            "valid_delta_pic50": {
+              "n": 0,
+              "mean": null,
+              "std": null,
+              "min": null,
+              "max": null
+            },
+            "distributions": {
+              "atom_recovery": {
+                "n": 2,
+                "mean": 0.3888888888888889,
+                "std": 0.23570226039551587,
+                "min": 0.2222222222222222,
+                "max": 0.5555555555555556
+              },
+              "bond_recovery": {
+                "n": 2,
+                "mean": 0.0,
+                "std": 0.0,
+                "min": 0.0,
+                "max": 0.0
+              },
+              "recovery": {
+                "n": 2,
+                "mean": 0.19444444444444445,
+                "std": 0.11785113019775793,
+                "min": 0.1111111111111111,
+                "max": 0.2777777777777778
+              },
+              "selected_rmsd_A": {
+                "n": 2,
+                "mean": 1.5058403250949437,
+                "std": 0.15424938644385516,
+                "min": 1.3967695379466294,
+                "max": 1.614911112243258
+              },
+              "selected_max_displacement_A": {
+                "n": 2,
+                "mean": 2.6657182473153345,
+                "std": 0.08716677866989428,
+                "min": 2.6040820270236655,
+                "max": 2.727354467607004
+              }
+            },
+            "exposure": {
+              "active_steps": {
+                "C1": 40,
+                "C2": 60,
+                "C3": 40,
+                "C4": 80,
+                "C5": 80,
+                "C6": 80
+              },
+              "empty_steps": 0,
+              "entries": {
+                "C1": 1,
+                "C2": 3,
+                "C3": 1,
+                "C4": 1,
+                "C5": 1,
+                "C6": 1
+              },
+              "reentries": {
+                "C1": 0,
+                "C2": 2,
+                "C3": 0,
+                "C4": 0,
+                "C5": 0,
+                "C6": 0
+              },
+              "releases": {
+                "C1": 0,
+                "C2": 2,
+                "C3": 0,
+                "C4": 0,
+                "C5": 0,
+                "C6": 0
+              }
+            },
+            "condition_metrics": {
+              "C1": {
+                "atom_hits": 1,
+                "atom_count": 2,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 2,
+                "unavailable_attempts": 0
+              },
+              "C2": {
+                "atom_hits": 5,
+                "atom_count": 8,
+                "bond_hits": 0,
+                "bond_count": 6,
+                "reported_attempts": 2,
+                "unavailable_attempts": 0
+              },
+              "C3": {
+                "atom_hits": 0,
+                "atom_count": 2,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 2,
+                "unavailable_attempts": 0
+              },
+              "C4": {
+                "atom_hits": 0,
+                "atom_count": 2,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 2,
+                "unavailable_attempts": 0
+              },
+              "C5": {
+                "atom_hits": 1,
+                "atom_count": 2,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 2,
+                "unavailable_attempts": 0
+              },
+              "C6": {
+                "atom_hits": 0,
+                "atom_count": 2,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 2,
+                "unavailable_attempts": 0
+              }
+            },
+            "pb_failures": {
+              "bond_lengths": 2,
+              "bond_angles": 2,
+              "internal_energy": 1,
+              "minimum_distance_to_protein": 1
+            },
+            "strain": {
+              "n": 2,
+              "mean": 570.2218318978031,
+              "std": 254.75755409446023,
+              "min": 390.08103783911156,
+              "max": 750.3626259564946
+            },
+            "strain_statuses": {
+              "ok": 2
+            },
+            "plip_recall": {
+              "n": 2,
+              "mean": 0.15000000000000002,
+              "std": 0.07071067811865475,
+              "min": 0.1,
+              "max": 0.2
+            },
+            "reentry_displacement_A": {
+              "n": 10,
+              "mean": 3.734621086716652,
+              "std": 2.812489776788927,
+              "min": 0.4162159860134125,
+              "max": 7.729771137237549
+            }
+          },
+          "stage": "confirmation"
+        },
+        {
+          "path": {
+            "id": "baseline",
+            "segments": [
+              {
+                "start": 0,
+                "end": 100,
+                "active": [
+                  "C1",
+                  "C2",
+                  "C3",
+                  "C4",
+                  "C5",
+                  "C6"
+                ]
+              }
+            ],
+            "parents": [],
+            "evidence": [
+              "condition_library"
+            ],
+            "observation": "All selected facts",
+            "change": "Static control",
+            "hypothesis": "Measure frozen ROOT inpainting capability",
+            "schedule_hash": "c7e87285120c3f77685be73c74352f3831d943592a8951aff2ef181d9de30201"
+          },
+          "summary": {
+            "path_id": "baseline",
+            "schedule_hash": "c7e87285120c3f77685be73c74352f3831d943592a8951aff2ef181d9de30201",
+            "attempts": 2,
+            "outcomes": {
+              "chemical_invalid": 1,
+              "evaluated": 1
+            },
+            "structure_pass_count": 0,
+            "exact_recovery_count": 0,
+            "J": 0.0,
+            "valid_delta_pic50": {
+              "n": 0,
+              "mean": null,
+              "std": null,
+              "min": null,
+              "max": null
+            },
+            "distributions": {
+              "atom_recovery": {
+                "n": 2,
+                "mean": 0.16666666666666666,
+                "std": 0.23570226039551584,
+                "min": 0.0,
+                "max": 0.3333333333333333
+              },
+              "bond_recovery": {
+                "n": 2,
+                "mean": 0.0,
+                "std": 0.0,
+                "min": 0.0,
+                "max": 0.0
+              },
+              "recovery": {
+                "n": 2,
+                "mean": 0.08333333333333333,
+                "std": 0.11785113019775792,
+                "min": 0.0,
+                "max": 0.16666666666666666
+              },
+              "selected_rmsd_A": {
+                "n": 1,
+                "mean": 1.6655807127702686,
+                "std": 0.0,
+                "min": 1.6655807127702686,
+                "max": 1.6655807127702686
+              },
+              "selected_max_displacement_A": {
+                "n": 1,
+                "mean": 2.3719721973576577,
+                "std": 0.0,
+                "min": 2.3719721973576577,
+                "max": 2.3719721973576577
+              }
+            },
+            "exposure": {
+              "active_steps": {
+                "C1": 100,
+                "C2": 100,
+                "C3": 100,
+                "C4": 100,
+                "C5": 100,
+                "C6": 100
+              },
+              "empty_steps": 0,
+              "entries": {
+                "C1": 1,
+                "C2": 1,
+                "C3": 1,
+                "C4": 1,
+                "C5": 1,
+                "C6": 1
+              },
+              "reentries": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0,
+                "C4": 0,
+                "C5": 0,
+                "C6": 0
+              },
+              "releases": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0,
+                "C4": 0,
+                "C5": 0,
+                "C6": 0
+              }
+            },
+            "condition_metrics": {
+              "C1": {
+                "atom_hits": 1,
+                "atom_count": 1,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 1,
+                "unavailable_attempts": 1
+              },
+              "C2": {
+                "atom_hits": 0,
+                "atom_count": 4,
+                "bond_hits": 0,
+                "bond_count": 3,
+                "reported_attempts": 1,
+                "unavailable_attempts": 1
+              },
+              "C3": {
+                "atom_hits": 1,
+                "atom_count": 1,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 1,
+                "unavailable_attempts": 1
+              },
+              "C4": {
+                "atom_hits": 0,
+                "atom_count": 1,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 1,
+                "unavailable_attempts": 1
+              },
+              "C5": {
+                "atom_hits": 1,
+                "atom_count": 1,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 1,
+                "unavailable_attempts": 1
+              },
+              "C6": {
+                "atom_hits": 0,
+                "atom_count": 1,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 1,
+                "unavailable_attempts": 1
+              }
+            },
+            "pb_failures": {
+              "all_atoms_connected": 1,
+              "bond_lengths": 1,
+              "bond_angles": 1,
+              "internal_steric_clash": 1,
+              "internal_energy": 1,
+              "minimum_distance_to_protein": 1
+            },
+            "strain": {
+              "n": 1,
+              "mean": 2014.428545488921,
+              "std": 0.0,
+              "min": 2014.428545488921,
+              "max": 2014.428545488921
+            },
+            "strain_statuses": {
+              "ok": 1
+            },
+            "plip_recall": {
+              "n": 1,
+              "mean": 0.1,
+              "std": 0.0,
+              "min": 0.1,
+              "max": 0.1
+            },
+            "reentry_displacement_A": {
+              "n": 1,
+              "mean": 6.202676773071289,
+              "std": 0.0,
+              "min": 6.202676773071289,
+              "max": 6.202676773071289
+            }
+          },
+          "stage": "confirmation"
+        }
+      ],
+      "attempt_statuses": {
+        "evaluated": 9,
+        "chemical_invalid": 8
+      },
+      "evaluation_sha256": {
+        "3w54_003/baseline/baseline/1000/evaluation.json": "711e5544d881e6d6184c152b4b1a3916e09a14143d6af512b25843a086a2065e",
+        "3w54_003/baseline/baseline/1001/evaluation.json": "0bc244fa340227105618d371ef6d8636b5e2a38e049ad5208874b361a4f41664",
+        "3w54_003/baseline/baseline/1002/evaluation.json": "13db3d5417b28598b84fb24aa0c3fe7d55dd8b25aa7b188fb2479b3dd48b8847",
+        "3w54_003/baseline/baseline/1003/evaluation.json": "5bd2295c1ecc5fe972a5d761b3bac485d43b88fffa37e7808dda63d6fec2a0a3",
+        "3w54_003/baseline/baseline/1004/evaluation.json": "045e7ca0cc3503e65734e7adf9eeb4f4b3c5f5a75518e7e9e2b7578d0c77fba1",
+        "3w54_003/round_001/staged_anchors/1000/evaluation.json": "c03eedfe2067594e7c906057c7cc53e1815e0ee22225f17dbe7be99597d190f8",
+        "3w54_003/round_001/staged_anchors/1001/evaluation.json": "12970eb3b7a72aeecb03c8b3c93fd994d1572c5f5d79eb9d6a2667f135a312c7",
+        "3w54_003/round_001/bond_seed_relax/1000/evaluation.json": "9eb6d0dad0e2239d59a7c9d54edff74d595ef3f60aa7cb47c27cddf1e244882b",
+        "3w54_003/round_001/bond_seed_relax/1001/evaluation.json": "be3f738636a9e9c33e78342421436a25f354002b485e001b5f591ea105b826ed",
+        "3w54_003/round_002/c2_continuous_anchor_tail/1000/evaluation.json": "77e9d0875ba46cad9169fd5a6e35c7e9ca1589ca7efebcf062ee52dcfdaf8fbb",
+        "3w54_003/round_002/c2_continuous_anchor_tail/1001/evaluation.json": "7f74110c303e06175c58ddf4764444caf42b39cc45c9ad69c514a08a58c20017",
+        "3w54_003/round_002/anchor_precondition_late_c2_window/1000/evaluation.json": "38e2cb12370465547eb8879e34a25a36a9d255d5a73b9f839a7ed71dff7939b1",
+        "3w54_003/round_002/anchor_precondition_late_c2_window/1001/evaluation.json": "fd470e8f179b54a3ad77bd77a246aeb8268276b5430a4c62d8c12eaf52206efe",
+        "3w54_003/confirmation/bond_seed_relax/2000/evaluation.json": "4f73d936363e057267ebc170c06b965b6097205ec36b2c14f8c4a4b1ee250a1b",
+        "3w54_003/confirmation/bond_seed_relax/2001/evaluation.json": "ad67cb3be5facc71136bae354de0604ae2db5e0ef182509a071ed42563431636",
+        "3w54_003/confirmation/baseline/2000/evaluation.json": "cc31494c52b3e9dd5b2de03c982f2c018a4adb70105d1492ad822339c1c0e715",
+        "3w54_003/confirmation/baseline/2001/evaluation.json": "3b0347e3cedbb1d71aa54ce0868370715052a8b6da8120b0139b2e3d2e7c21ca"
+      },
+      "reference_check": {
+        "structure_pass": true,
+        "atom_recovery": 1.0,
+        "bond_recovery": 0.6666666666666666,
+        "pic50": 8.711566925048828,
+        "strain": {
+          "status": "ok",
+          "pose_energy": 104.21560029842459,
+          "minimum_energy": 86.08792604904488,
+          "strain_kcal_mol": 18.12767424937971,
+          "heavy_rmsd_A": 0.9476424076991724
+        },
+        "plip": {
+          "expected": 10,
+          "matched": 10,
+          "observed": 10,
+          "recall": 1.0
+        },
+        "bond_hits": {
+          "B:5:10": true,
+          "B:5:12": true,
+          "B:12:15": false
+        }
+      }
+    },
+    "6pyy_015": {
+      "target_id": "6pyy_H7S_A_402",
+      "node_id": "single_b004_final_015",
+      "library_hash": "e7451a3ff99263251bfb95a69187ef13d6292e5c8fb50f068db62c17bfb15497",
+      "selected_atom_ids": [
+        1,
+        4,
+        5,
+        8,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "selected_bond_count": 6,
+      "groups": {
+        "C1": {
+          "atom_ids": [
+            1,
+            4,
+            5,
+            8,
+            13,
+            16
+          ],
+          "bond_ids": [
+            "B:13:16",
+            "B:1:16",
+            "B:1:5",
+            "B:4:13",
+            "B:4:8",
+            "B:5:8"
+          ]
+        },
+        "C2": {
+          "atom_ids": [
+            12
+          ],
+          "bond_ids": []
+        },
+        "C3": {
+          "atom_ids": [
+            14
+          ],
+          "bond_ids": []
+        },
+        "C4": {
+          "atom_ids": [
+            15
+          ],
+          "bond_ids": []
+        }
+      },
+      "baseline": {
+        "path": {
+          "id": "baseline",
+          "segments": [
+            {
+              "start": 0,
+              "end": 100,
+              "active": [
+                "C1",
+                "C2",
+                "C3",
+                "C4"
+              ]
+            }
+          ],
+          "parents": [],
+          "evidence": [
+            "condition_library"
+          ],
+          "observation": "All selected facts",
+          "change": "Static control",
+          "hypothesis": "Measure frozen ROOT inpainting capability",
+          "schedule_hash": "4dd1e7eaacc62e007923152d33dc19248b6fde75c44a15b6a72217cf4b221310"
+        },
+        "summary": {
+          "path_id": "baseline",
+          "schedule_hash": "4dd1e7eaacc62e007923152d33dc19248b6fde75c44a15b6a72217cf4b221310",
+          "attempts": 5,
+          "outcomes": {
+            "chemical_invalid": 5
+          },
+          "structure_pass_count": 0,
+          "exact_recovery_count": 0,
+          "J": 0.0,
+          "valid_delta_pic50": {
+            "n": 0,
+            "mean": null,
+            "std": null,
+            "min": null,
+            "max": null
+          },
+          "distributions": {
+            "atom_recovery": {
+              "n": 5,
+              "mean": 0.0,
+              "std": 0.0,
+              "min": 0.0,
+              "max": 0.0
+            },
+            "bond_recovery": {
+              "n": 5,
+              "mean": 0.0,
+              "std": 0.0,
+              "min": 0.0,
+              "max": 0.0
+            },
+            "recovery": {
+              "n": 5,
+              "mean": 0.0,
+              "std": 0.0,
+              "min": 0.0,
+              "max": 0.0
+            },
+            "selected_rmsd_A": {
+              "n": 0,
+              "mean": null,
+              "std": null,
+              "min": null,
+              "max": null
+            },
+            "selected_max_displacement_A": {
+              "n": 0,
+              "mean": null,
+              "std": null,
+              "min": null,
+              "max": null
+            }
+          },
+          "exposure": {
+            "active_steps": {
+              "C1": 100,
+              "C2": 100,
+              "C3": 100,
+              "C4": 100
+            },
+            "empty_steps": 0,
+            "entries": {
+              "C1": 1,
+              "C2": 1,
+              "C3": 1,
+              "C4": 1
+            },
+            "reentries": {
+              "C1": 0,
+              "C2": 0,
+              "C3": 0,
+              "C4": 0
+            },
+            "releases": {
+              "C1": 0,
+              "C2": 0,
+              "C3": 0,
+              "C4": 0
+            }
+          },
+          "condition_metrics": {
+            "C1": {
+              "atom_hits": 0,
+              "atom_count": 0,
+              "bond_hits": 0,
+              "bond_count": 0,
+              "reported_attempts": 0,
+              "unavailable_attempts": 5
+            },
+            "C2": {
+              "atom_hits": 0,
+              "atom_count": 0,
+              "bond_hits": 0,
+              "bond_count": 0,
+              "reported_attempts": 0,
+              "unavailable_attempts": 5
+            },
+            "C3": {
+              "atom_hits": 0,
+              "atom_count": 0,
+              "bond_hits": 0,
+              "bond_count": 0,
+              "reported_attempts": 0,
+              "unavailable_attempts": 5
+            },
+            "C4": {
+              "atom_hits": 0,
+              "atom_count": 0,
+              "bond_hits": 0,
+              "bond_count": 0,
+              "reported_attempts": 0,
+              "unavailable_attempts": 5
+            }
+          },
+          "pb_failures": {},
+          "strain": {
+            "n": 0,
+            "mean": null,
+            "std": null,
+            "min": null,
+            "max": null
+          },
+          "strain_statuses": {},
+          "plip_recall": {
+            "n": 0,
+            "mean": null,
+            "std": null,
+            "min": null,
+            "max": null
+          },
+          "reentry_displacement_A": {
+            "n": 0,
+            "mean": null,
+            "std": null,
+            "min": null,
+            "max": null
+          }
+        },
+        "stage": "baseline"
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "records": [
+            {
+              "path": {
+                "id": "ring_first_staggered_oxygens",
+                "segments": [
+                  {
+                    "start": 0,
+                    "end": 20,
+                    "active": [
+                      "C1"
+                    ]
+                  },
+                  {
+                    "start": 20,
+                    "end": 40,
+                    "active": [
+                      "C1",
+                      "C2"
+                    ]
+                  },
+                  {
+                    "start": 40,
+                    "end": 60,
+                    "active": [
+                      "C1",
+                      "C3"
+                    ]
+                  },
+                  {
+                    "start": 60,
+                    "end": 80,
+                    "active": [
+                      "C1",
+                      "C4"
+                    ]
+                  },
+                  {
+                    "start": 80,
+                    "end": 100,
+                    "active": []
+                  }
+                ],
+                "parents": [
+                  "baseline"
+                ],
+                "evidence": [
+                  "condition_library",
+                  "metrics:baseline"
+                ],
+                "observation": "Baseline held C1-C4 active for all 100 updates and produced 5/5 chemical_invalid with zero atom/bond/recovery and J=0.0 (metrics:baseline); no historical best is available. condition_library shows C1 is the aromatic ring fragment and C2-C4 are single oxygen conditions.",
+                "change": "Seed the C1 ring first, then introduce one oxygen condition at a time in separate 20-step windows, and release all conditions for the final 20 updates.",
+                "hypothesis": "Test whether reducing simultaneous C2-C4 exposure while letting the C1 ring scaffold guide staged oxygen placement avoids early overconstraint and permits a chemically valid final repair.",
+                "schedule_hash": "ec5c8c5506317b0afe1f3f1bf574bb1a698f2d4ec142768bc1917da9aa7fff7f"
+              },
+              "summary": {
+                "path_id": "ring_first_staggered_oxygens",
+                "schedule_hash": "ec5c8c5506317b0afe1f3f1bf574bb1a698f2d4ec142768bc1917da9aa7fff7f",
+                "attempts": 2,
+                "outcomes": {
+                  "evaluated": 2
+                },
+                "structure_pass_count": 2,
+                "exact_recovery_count": 0,
+                "J": 0.8333333333333333,
+                "valid_delta_pic50": {
+                  "n": 2,
+                  "mean": -0.7642428874969482,
+                  "std": 0.5030003834415065,
+                  "min": -1.119917869567871,
+                  "max": -0.4085679054260254
+                },
+                "distributions": {
+                  "atom_recovery": {
+                    "n": 2,
+                    "mean": 0.8333333333333333,
+                    "std": 0.07856742013183857,
+                    "min": 0.7777777777777778,
+                    "max": 0.8888888888888888
+                  },
+                  "bond_recovery": {
+                    "n": 2,
+                    "mean": 0.8333333333333333,
+                    "std": 0.23570226039551587,
+                    "min": 0.6666666666666666,
+                    "max": 1.0
+                  },
+                  "recovery": {
+                    "n": 2,
+                    "mean": 0.8333333333333333,
+                    "std": 0.15713484026367722,
+                    "min": 0.7222222222222222,
+                    "max": 0.9444444444444444
+                  },
+                  "selected_rmsd_A": {
+                    "n": 2,
+                    "mean": 0.8910776811442123,
+                    "std": 0.021028322593691445,
+                    "min": 0.8762084116412348,
+                    "max": 0.9059469506471898
+                  },
+                  "selected_max_displacement_A": {
+                    "n": 2,
+                    "mean": 1.3543858374280475,
+                    "std": 0.2678996824708565,
+                    "min": 1.164952155275182,
+                    "max": 1.543819519580913
+                  }
+                },
+                "exposure": {
+                  "active_steps": {
+                    "C1": 80,
+                    "C2": 20,
+                    "C3": 20,
+                    "C4": 20
+                  },
+                  "empty_steps": 20,
+                  "entries": {
+                    "C1": 1,
+                    "C2": 1,
+                    "C3": 1,
+                    "C4": 1
+                  },
+                  "reentries": {
+                    "C1": 0,
+                    "C2": 0,
+                    "C3": 0,
+                    "C4": 0
+                  },
+                  "releases": {
+                    "C1": 1,
+                    "C2": 1,
+                    "C3": 1,
+                    "C4": 1
+                  }
+                },
+                "condition_metrics": {
+                  "C1": {
+                    "atom_hits": 11,
+                    "atom_count": 12,
+                    "bond_hits": 10,
+                    "bond_count": 12,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C2": {
+                    "atom_hits": 2,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C3": {
+                    "atom_hits": 2,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C4": {
+                    "atom_hits": 0,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  }
+                },
+                "pb_failures": {},
+                "strain": {
+                  "n": 2,
+                  "mean": 18.378283560169415,
+                  "std": 2.61957760904144,
+                  "min": 16.52596246897177,
+                  "max": 20.23060465136706
+                },
+                "strain_statuses": {
+                  "ok": 2
+                },
+                "plip_recall": {
+                  "n": 2,
+                  "mean": 0.2777777777777778,
+                  "std": 0.07856742013183861,
+                  "min": 0.2222222222222222,
+                  "max": 0.3333333333333333
+                },
+                "reentry_displacement_A": {
+                  "n": 10,
+                  "mean": 3.9833946943283083,
+                  "std": 2.3967545187053036,
+                  "min": 0.0,
+                  "max": 6.687379837036133
+                }
+              },
+              "stage": "round_001"
+            },
+            {
+              "path": {
+                "id": "oxygen_first_ring_late",
+                "segments": [
+                  {
+                    "start": 0,
+                    "end": 10,
+                    "active": []
+                  },
+                  {
+                    "start": 10,
+                    "end": 30,
+                    "active": [
+                      "C2"
+                    ]
+                  },
+                  {
+                    "start": 30,
+                    "end": 50,
+                    "active": [
+                      "C3"
+                    ]
+                  },
+                  {
+                    "start": 50,
+                    "end": 70,
+                    "active": [
+                      "C4"
+                    ]
+                  },
+                  {
+                    "start": 70,
+                    "end": 90,
+                    "active": [
+                      "C1"
+                    ]
+                  },
+                  {
+                    "start": 90,
+                    "end": 100,
+                    "active": []
+                  }
+                ],
+                "parents": [
+                  "baseline"
+                ],
+                "evidence": [
+                  "condition_library",
+                  "metrics:baseline"
+                ],
+                "observation": "Baseline's fully simultaneous C1-C4 schedule was chemically invalid in 5/5 attempts with no recovery (metrics:baseline). condition_library separates C1 from the three individual oxygen conditions, enabling an order-reversed test.",
+                "change": "Start with an unconstrained 10-step window, place C2, C3, and C4 sequentially first, then activate the C1 ring late, and finish with a 10-step unconstrained release window.",
+                "hypothesis": "Test whether oxygen-first anchoring followed by late ring closure and final release can resolve the chemical invalidity seen under simultaneous baseline constraints, providing a complementary ordering test to ring-first staging.",
+                "schedule_hash": "dfea782601c40ed49b35127987b9963959fcba49e9c6efd92bb61485d71a9a7c"
+              },
+              "summary": {
+                "path_id": "oxygen_first_ring_late",
+                "schedule_hash": "dfea782601c40ed49b35127987b9963959fcba49e9c6efd92bb61485d71a9a7c",
+                "attempts": 2,
+                "outcomes": {
+                  "chemical_invalid": 1,
+                  "evaluated": 1
+                },
+                "structure_pass_count": 0,
+                "exact_recovery_count": 0,
+                "J": 0.0,
+                "valid_delta_pic50": {
+                  "n": 0,
+                  "mean": null,
+                  "std": null,
+                  "min": null,
+                  "max": null
+                },
+                "distributions": {
+                  "atom_recovery": {
+                    "n": 2,
+                    "mean": 0.3333333333333333,
+                    "std": 0.4714045207910317,
+                    "min": 0.0,
+                    "max": 0.6666666666666666
+                  },
+                  "bond_recovery": {
+                    "n": 2,
+                    "mean": 0.08333333333333333,
+                    "std": 0.11785113019775792,
+                    "min": 0.0,
+                    "max": 0.16666666666666666
+                  },
+                  "recovery": {
+                    "n": 2,
+                    "mean": 0.20833333333333331,
+                    "std": 0.29462782549439476,
+                    "min": 0.0,
+                    "max": 0.41666666666666663
+                  },
+                  "selected_rmsd_A": {
+                    "n": 1,
+                    "mean": 1.008999347407201,
+                    "std": 0.0,
+                    "min": 1.008999347407201,
+                    "max": 1.008999347407201
+                  },
+                  "selected_max_displacement_A": {
+                    "n": 1,
+                    "mean": 1.545997264939629,
+                    "std": 0.0,
+                    "min": 1.545997264939629,
+                    "max": 1.545997264939629
+                  }
+                },
+                "exposure": {
+                  "active_steps": {
+                    "C1": 20,
+                    "C2": 20,
+                    "C3": 20,
+                    "C4": 20
+                  },
+                  "empty_steps": 20,
+                  "entries": {
+                    "C1": 1,
+                    "C2": 1,
+                    "C3": 1,
+                    "C4": 1
+                  },
+                  "reentries": {
+                    "C1": 0,
+                    "C2": 0,
+                    "C3": 0,
+                    "C4": 0
+                  },
+                  "releases": {
+                    "C1": 1,
+                    "C2": 1,
+                    "C3": 1,
+                    "C4": 1
+                  }
+                },
+                "condition_metrics": {
+                  "C1": {
+                    "atom_hits": 4,
+                    "atom_count": 6,
+                    "bond_hits": 1,
+                    "bond_count": 6,
+                    "reported_attempts": 1,
+                    "unavailable_attempts": 1
+                  },
+                  "C2": {
+                    "atom_hits": 0,
+                    "atom_count": 1,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 1,
+                    "unavailable_attempts": 1
+                  },
+                  "C3": {
+                    "atom_hits": 1,
+                    "atom_count": 1,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 1,
+                    "unavailable_attempts": 1
+                  },
+                  "C4": {
+                    "atom_hits": 1,
+                    "atom_count": 1,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 1,
+                    "unavailable_attempts": 1
+                  }
+                },
+                "pb_failures": {
+                  "bond_lengths": 1,
+                  "bond_angles": 1
+                },
+                "strain": {
+                  "n": 1,
+                  "mean": 306.8677604343867,
+                  "std": 0.0,
+                  "min": 306.8677604343867,
+                  "max": 306.8677604343867
+                },
+                "strain_statuses": {
+                  "ok": 1
+                },
+                "plip_recall": {
+                  "n": 1,
+                  "mean": 0.4444444444444444,
+                  "std": 0.0,
+                  "min": 0.4444444444444444,
+                  "max": 0.4444444444444444
+                },
+                "reentry_displacement_A": {
+                  "n": 5,
+                  "mean": 4.601360893249511,
+                  "std": 2.6334067449641703,
+                  "min": 0.0,
+                  "max": 6.645013809204102
+                }
+              },
+              "stage": "round_001"
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "records": [
+            {
+              "path": {
+                "id": "ring_first_c4_extended_reentry",
+                "segments": [
+                  {
+                    "start": 0,
+                    "end": 20,
+                    "active": [
+                      "C1"
+                    ]
+                  },
+                  {
+                    "start": 20,
+                    "end": 40,
+                    "active": [
+                      "C1",
+                      "C2"
+                    ]
+                  },
+                  {
+                    "start": 40,
+                    "end": 60,
+                    "active": [
+                      "C1",
+                      "C3"
+                    ]
+                  },
+                  {
+                    "start": 60,
+                    "end": 80,
+                    "active": [
+                      "C1",
+                      "C4"
+                    ]
+                  },
+                  {
+                    "start": 80,
+                    "end": 90,
+                    "active": []
+                  },
+                  {
+                    "start": 90,
+                    "end": 100,
+                    "active": [
+                      "C4"
+                    ]
+                  }
+                ],
+                "parents": [
+                  "ring_first_staggered_oxygens"
+                ],
+                "evidence": [
+                  "condition_library",
+                  "metrics:ring_first_staggered_oxygens",
+                  "metrics:oxygen_first_ring_late"
+                ],
+                "observation": "metrics:ring_first_staggered_oxygens has J=0.833, structure_pass 2/2, and atom/bond recovery 0.833, but C4 atom_hits are 0/2; metrics:oxygen_first_ring_late is chemical_invalid 1/2 with bond_lengths/bond_angles failures, so C1-first ordering is retained.",
+                "change": "Preserve the C1 ring-first staged oxygen sequence, release at 80-90, then re-enter C4 on the grid window 90-100 so C4 receives a late post-release exposure without using non-grid boundaries.",
+                "hypothesis": "Test whether a late C4 re-entry after C1 scaffold release can engage the currently missed C4 oxygen without simultaneous oxygen overconstraint, while retaining the C1-first ordering from the historical best.",
+                "schedule_hash": "7ce6cab7394f78a251227568a11a249309661347932dba19723cdb64a9ac3351"
+              },
+              "summary": {
+                "path_id": "ring_first_c4_extended_reentry",
+                "schedule_hash": "7ce6cab7394f78a251227568a11a249309661347932dba19723cdb64a9ac3351",
+                "attempts": 2,
+                "outcomes": {
+                  "evaluated": 2
+                },
+                "structure_pass_count": 2,
+                "exact_recovery_count": 1,
+                "J": 0.8888888888888888,
+                "valid_delta_pic50": {
+                  "n": 2,
+                  "mean": -0.7862632274627686,
+                  "std": 0.4773474512142598,
+                  "min": -1.1237988471984863,
+                  "max": -0.4487276077270508
+                },
+                "distributions": {
+                  "atom_recovery": {
+                    "n": 2,
+                    "mean": 0.9444444444444444,
+                    "std": 0.07856742013183865,
+                    "min": 0.8888888888888888,
+                    "max": 1.0
+                  },
+                  "bond_recovery": {
+                    "n": 2,
+                    "mean": 0.8333333333333333,
+                    "std": 0.23570226039551587,
+                    "min": 0.6666666666666666,
+                    "max": 1.0
+                  },
+                  "recovery": {
+                    "n": 2,
+                    "mean": 0.8888888888888888,
+                    "std": 0.1571348402636773,
+                    "min": 0.7777777777777777,
+                    "max": 1.0
+                  },
+                  "selected_rmsd_A": {
+                    "n": 2,
+                    "mean": 0.8542431250298905,
+                    "std": 0.03452281732566415,
+                    "min": 0.829831806793249,
+                    "max": 0.8786544432665321
+                  },
+                  "selected_max_displacement_A": {
+                    "n": 2,
+                    "mean": 1.314585331963837,
+                    "std": 0.36099429855569226,
+                    "min": 1.0593238154854259,
+                    "max": 1.569846848442248
+                  }
+                },
+                "exposure": {
+                  "active_steps": {
+                    "C1": 80,
+                    "C2": 20,
+                    "C3": 20,
+                    "C4": 30
+                  },
+                  "empty_steps": 10,
+                  "entries": {
+                    "C1": 1,
+                    "C2": 1,
+                    "C3": 1,
+                    "C4": 2
+                  },
+                  "reentries": {
+                    "C1": 0,
+                    "C2": 0,
+                    "C3": 0,
+                    "C4": 1
+                  },
+                  "releases": {
+                    "C1": 1,
+                    "C2": 1,
+                    "C3": 1,
+                    "C4": 1
+                  }
+                },
+                "condition_metrics": {
+                  "C1": {
+                    "atom_hits": 11,
+                    "atom_count": 12,
+                    "bond_hits": 10,
+                    "bond_count": 12,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C2": {
+                    "atom_hits": 2,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C3": {
+                    "atom_hits": 2,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C4": {
+                    "atom_hits": 2,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  }
+                },
+                "pb_failures": {},
+                "strain": {
+                  "n": 2,
+                  "mean": 20.924792326569122,
+                  "std": 10.640104165723384,
+                  "min": 13.401102518454884,
+                  "max": 28.44848213468336
+                },
+                "strain_statuses": {
+                  "ok": 2
+                },
+                "plip_recall": {
+                  "n": 2,
+                  "mean": 0.2777777777777778,
+                  "std": 0.07856742013183861,
+                  "min": 0.2222222222222222,
+                  "max": 0.3333333333333333
+                },
+                "reentry_displacement_A": {
+                  "n": 12,
+                  "mean": 3.3596309230973325,
+                  "std": 2.6124963727312767,
+                  "min": 0.0,
+                  "max": 6.687379837036133
+                }
+              },
+              "stage": "round_002"
+            },
+            {
+              "path": {
+                "id": "ring_first_c4_early_rotation",
+                "segments": [
+                  {
+                    "start": 0,
+                    "end": 20,
+                    "active": [
+                      "C1"
+                    ]
+                  },
+                  {
+                    "start": 20,
+                    "end": 40,
+                    "active": [
+                      "C1",
+                      "C4"
+                    ]
+                  },
+                  {
+                    "start": 40,
+                    "end": 60,
+                    "active": [
+                      "C1",
+                      "C2"
+                    ]
+                  },
+                  {
+                    "start": 60,
+                    "end": 80,
+                    "active": [
+                      "C1",
+                      "C3"
+                    ]
+                  },
+                  {
+                    "start": 80,
+                    "end": 100,
+                    "active": []
+                  }
+                ],
+                "parents": [
+                  "ring_first_staggered_oxygens"
+                ],
+                "evidence": [
+                  "condition_library",
+                  "metrics:ring_first_staggered_oxygens"
+                ],
+                "observation": "metrics:ring_first_staggered_oxygens reports C4 atom_hits 0/2 while overall J=0.833 and C1/C2/C3 have nonzero hits; C4 was the last oxygen window in that historical best.",
+                "change": "Keep the same grid-aligned 20-step exposure counts and final 20-step empty release as the historical best, but rotate oxygen order to C4 first, then C2, then C3 after the C1 seed.",
+                "hypothesis": "Test whether introducing C4 immediately after C1 scaffold seeding changes C4 engagement relative to placing C4 last, isolating oxygen ordering from total exposure.",
+                "schedule_hash": "c0d87b787461b2c0c04661d7d68ac9f24fca672291e8735f13de95c1990de677"
+              },
+              "summary": {
+                "path_id": "ring_first_c4_early_rotation",
+                "schedule_hash": "c0d87b787461b2c0c04661d7d68ac9f24fca672291e8735f13de95c1990de677",
+                "attempts": 2,
+                "outcomes": {
+                  "evaluated": 2
+                },
+                "structure_pass_count": 2,
+                "exact_recovery_count": 0,
+                "J": 0.8888888888888888,
+                "valid_delta_pic50": {
+                  "n": 2,
+                  "mean": -0.25436878204345703,
+                  "std": 0.6322344220934907,
+                  "min": -0.7014260292053223,
+                  "max": 0.1926884651184082
+                },
+                "distributions": {
+                  "atom_recovery": {
+                    "n": 2,
+                    "mean": 0.9444444444444444,
+                    "std": 0.07856742013183865,
+                    "min": 0.8888888888888888,
+                    "max": 1.0
+                  },
+                  "bond_recovery": {
+                    "n": 2,
+                    "mean": 0.8333333333333333,
+                    "std": 0.23570226039551587,
+                    "min": 0.6666666666666666,
+                    "max": 1.0
+                  },
+                  "recovery": {
+                    "n": 2,
+                    "mean": 0.8888888888888888,
+                    "std": 0.07856742013183865,
+                    "min": 0.8333333333333333,
+                    "max": 0.9444444444444444
+                  },
+                  "selected_rmsd_A": {
+                    "n": 2,
+                    "mean": 1.199971727201186,
+                    "std": 0.02327629469086728,
+                    "min": 1.1835129013843775,
+                    "max": 1.2164305530179949
+                  },
+                  "selected_max_displacement_A": {
+                    "n": 2,
+                    "mean": 2.8256569225782058,
+                    "std": 0.0760638783776656,
+                    "min": 2.7718716383740096,
+                    "max": 2.879442206782402
+                  }
+                },
+                "exposure": {
+                  "active_steps": {
+                    "C1": 80,
+                    "C2": 20,
+                    "C3": 20,
+                    "C4": 20
+                  },
+                  "empty_steps": 20,
+                  "entries": {
+                    "C1": 1,
+                    "C2": 1,
+                    "C3": 1,
+                    "C4": 1
+                  },
+                  "reentries": {
+                    "C1": 0,
+                    "C2": 0,
+                    "C3": 0,
+                    "C4": 0
+                  },
+                  "releases": {
+                    "C1": 1,
+                    "C2": 1,
+                    "C3": 1,
+                    "C4": 1
+                  }
+                },
+                "condition_metrics": {
+                  "C1": {
+                    "atom_hits": 12,
+                    "atom_count": 12,
+                    "bond_hits": 10,
+                    "bond_count": 12,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C2": {
+                    "atom_hits": 2,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C3": {
+                    "atom_hits": 1,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  },
+                  "C4": {
+                    "atom_hits": 2,
+                    "atom_count": 2,
+                    "bond_hits": 0,
+                    "bond_count": 0,
+                    "reported_attempts": 2,
+                    "unavailable_attempts": 0
+                  }
+                },
+                "pb_failures": {},
+                "strain": {
+                  "n": 2,
+                  "mean": 29.56319610043294,
+                  "std": 1.5437289589443541,
+                  "min": 28.471614885249338,
+                  "max": 30.654777315616542
+                },
+                "strain_statuses": {
+                  "ok": 2
+                },
+                "plip_recall": {
+                  "n": 2,
+                  "mean": 0.3888888888888889,
+                  "std": 0.23570226039551587,
+                  "min": 0.2222222222222222,
+                  "max": 0.5555555555555556
+                },
+                "reentry_displacement_A": {
+                  "n": 10,
+                  "mean": 3.780592155456543,
+                  "std": 2.4151487631908983,
+                  "min": 0.0,
+                  "max": 7.107950687408447
+                }
+              },
+              "stage": "round_002"
+            }
+          ]
+        }
+      ],
+      "winner": "ring_first_c4_early_rotation",
+      "confirmation": [
+        {
+          "path": {
+            "id": "ring_first_c4_early_rotation",
+            "segments": [
+              {
+                "start": 0,
+                "end": 20,
+                "active": [
+                  "C1"
+                ]
+              },
+              {
+                "start": 20,
+                "end": 40,
+                "active": [
+                  "C1",
+                  "C4"
+                ]
+              },
+              {
+                "start": 40,
+                "end": 60,
+                "active": [
+                  "C1",
+                  "C2"
+                ]
+              },
+              {
+                "start": 60,
+                "end": 80,
+                "active": [
+                  "C1",
+                  "C3"
+                ]
+              },
+              {
+                "start": 80,
+                "end": 100,
+                "active": []
+              }
+            ],
+            "parents": [
+              "ring_first_staggered_oxygens"
+            ],
+            "evidence": [
+              "condition_library",
+              "metrics:ring_first_staggered_oxygens"
+            ],
+            "observation": "metrics:ring_first_staggered_oxygens reports C4 atom_hits 0/2 while overall J=0.833 and C1/C2/C3 have nonzero hits; C4 was the last oxygen window in that historical best.",
+            "change": "Keep the same grid-aligned 20-step exposure counts and final 20-step empty release as the historical best, but rotate oxygen order to C4 first, then C2, then C3 after the C1 seed.",
+            "hypothesis": "Test whether introducing C4 immediately after C1 scaffold seeding changes C4 engagement relative to placing C4 last, isolating oxygen ordering from total exposure.",
+            "schedule_hash": "c0d87b787461b2c0c04661d7d68ac9f24fca672291e8735f13de95c1990de677"
+          },
+          "summary": {
+            "path_id": "ring_first_c4_early_rotation",
+            "schedule_hash": "c0d87b787461b2c0c04661d7d68ac9f24fca672291e8735f13de95c1990de677",
+            "attempts": 2,
+            "outcomes": {
+              "evaluated": 2
+            },
+            "structure_pass_count": 1,
+            "exact_recovery_count": 1,
+            "J": 0.4444444444444444,
+            "valid_delta_pic50": {
+              "n": 1,
+              "mean": -0.8962388038635254,
+              "std": 0.0,
+              "min": -0.8962388038635254,
+              "max": -0.8962388038635254
+            },
+            "distributions": {
+              "atom_recovery": {
+                "n": 2,
+                "mean": 0.8888888888888888,
+                "std": 0.15713484026367722,
+                "min": 0.7777777777777778,
+                "max": 1.0
+              },
+              "bond_recovery": {
+                "n": 2,
+                "mean": 1.0,
+                "std": 0.0,
+                "min": 1.0,
+                "max": 1.0
+              },
+              "recovery": {
+                "n": 2,
+                "mean": 0.9444444444444444,
+                "std": 0.07856742013183865,
+                "min": 0.8888888888888888,
+                "max": 1.0
+              },
+              "selected_rmsd_A": {
+                "n": 2,
+                "mean": 0.9545623563087584,
+                "std": 0.09576575329263579,
+                "min": 0.8868457427500976,
+                "max": 1.022278969867419
+              },
+              "selected_max_displacement_A": {
+                "n": 2,
+                "mean": 1.2598113012507146,
+                "std": 0.015958880619330335,
+                "min": 1.2485266685446395,
+                "max": 1.2710959339567895
+              }
+            },
+            "exposure": {
+              "active_steps": {
+                "C1": 80,
+                "C2": 20,
+                "C3": 20,
+                "C4": 20
+              },
+              "empty_steps": 20,
+              "entries": {
+                "C1": 1,
+                "C2": 1,
+                "C3": 1,
+                "C4": 1
+              },
+              "reentries": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0,
+                "C4": 0
+              },
+              "releases": {
+                "C1": 1,
+                "C2": 1,
+                "C3": 1,
+                "C4": 1
+              }
+            },
+            "condition_metrics": {
+              "C1": {
+                "atom_hits": 12,
+                "atom_count": 12,
+                "bond_hits": 12,
+                "bond_count": 12,
+                "reported_attempts": 2,
+                "unavailable_attempts": 0
+              },
+              "C2": {
+                "atom_hits": 2,
+                "atom_count": 2,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 2,
+                "unavailable_attempts": 0
+              },
+              "C3": {
+                "atom_hits": 1,
+                "atom_count": 2,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 2,
+                "unavailable_attempts": 0
+              },
+              "C4": {
+                "atom_hits": 1,
+                "atom_count": 2,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 2,
+                "unavailable_attempts": 0
+              }
+            },
+            "pb_failures": {
+              "minimum_distance_to_protein": 1
+            },
+            "strain": {
+              "n": 2,
+              "mean": 26.33101320081613,
+              "std": 14.81507812748167,
+              "min": 15.855170993065343,
+              "max": 36.80685540856692
+            },
+            "strain_statuses": {
+              "ok": 2
+            },
+            "plip_recall": {
+              "n": 2,
+              "mean": 0.5555555555555556,
+              "std": 0.15713484026367722,
+              "min": 0.4444444444444444,
+              "max": 0.6666666666666666
+            },
+            "reentry_displacement_A": {
+              "n": 10,
+              "mean": 4.209855699539185,
+              "std": 2.7003227856952416,
+              "min": 0.0,
+              "max": 7.617950916290283
+            }
+          },
+          "stage": "confirmation"
+        },
+        {
+          "path": {
+            "id": "baseline",
+            "segments": [
+              {
+                "start": 0,
+                "end": 100,
+                "active": [
+                  "C1",
+                  "C2",
+                  "C3",
+                  "C4"
+                ]
+              }
+            ],
+            "parents": [],
+            "evidence": [
+              "condition_library"
+            ],
+            "observation": "All selected facts",
+            "change": "Static control",
+            "hypothesis": "Measure frozen ROOT inpainting capability",
+            "schedule_hash": "4dd1e7eaacc62e007923152d33dc19248b6fde75c44a15b6a72217cf4b221310"
+          },
+          "summary": {
+            "path_id": "baseline",
+            "schedule_hash": "4dd1e7eaacc62e007923152d33dc19248b6fde75c44a15b6a72217cf4b221310",
+            "attempts": 2,
+            "outcomes": {
+              "chemical_invalid": 2
+            },
+            "structure_pass_count": 0,
+            "exact_recovery_count": 0,
+            "J": 0.0,
+            "valid_delta_pic50": {
+              "n": 0,
+              "mean": null,
+              "std": null,
+              "min": null,
+              "max": null
+            },
+            "distributions": {
+              "atom_recovery": {
+                "n": 2,
+                "mean": 0.0,
+                "std": 0.0,
+                "min": 0.0,
+                "max": 0.0
+              },
+              "bond_recovery": {
+                "n": 2,
+                "mean": 0.0,
+                "std": 0.0,
+                "min": 0.0,
+                "max": 0.0
+              },
+              "recovery": {
+                "n": 2,
+                "mean": 0.0,
+                "std": 0.0,
+                "min": 0.0,
+                "max": 0.0
+              },
+              "selected_rmsd_A": {
+                "n": 0,
+                "mean": null,
+                "std": null,
+                "min": null,
+                "max": null
+              },
+              "selected_max_displacement_A": {
+                "n": 0,
+                "mean": null,
+                "std": null,
+                "min": null,
+                "max": null
+              }
+            },
+            "exposure": {
+              "active_steps": {
+                "C1": 100,
+                "C2": 100,
+                "C3": 100,
+                "C4": 100
+              },
+              "empty_steps": 0,
+              "entries": {
+                "C1": 1,
+                "C2": 1,
+                "C3": 1,
+                "C4": 1
+              },
+              "reentries": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0,
+                "C4": 0
+              },
+              "releases": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0,
+                "C4": 0
+              }
+            },
+            "condition_metrics": {
+              "C1": {
+                "atom_hits": 0,
+                "atom_count": 0,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 0,
+                "unavailable_attempts": 2
+              },
+              "C2": {
+                "atom_hits": 0,
+                "atom_count": 0,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 0,
+                "unavailable_attempts": 2
+              },
+              "C3": {
+                "atom_hits": 0,
+                "atom_count": 0,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 0,
+                "unavailable_attempts": 2
+              },
+              "C4": {
+                "atom_hits": 0,
+                "atom_count": 0,
+                "bond_hits": 0,
+                "bond_count": 0,
+                "reported_attempts": 0,
+                "unavailable_attempts": 2
+              }
+            },
+            "pb_failures": {},
+            "strain": {
+              "n": 0,
+              "mean": null,
+              "std": null,
+              "min": null,
+              "max": null
+            },
+            "strain_statuses": {},
+            "plip_recall": {
+              "n": 0,
+              "mean": null,
+              "std": null,
+              "min": null,
+              "max": null
+            },
+            "reentry_displacement_A": {
+              "n": 0,
+              "mean": null,
+              "std": null,
+              "min": null,
+              "max": null
+            }
+          },
+          "stage": "confirmation"
+        }
+      ],
+      "attempt_statuses": {
+        "chemical_invalid": 8,
+        "evaluated": 9
+      },
+      "evaluation_sha256": {
+        "6pyy_015/baseline/baseline/1000/evaluation.json": "e9afdbefaa123e12cfe8928979bdf607e9524ef4f463efa6c9b9582bb0e3745e",
+        "6pyy_015/baseline/baseline/1001/evaluation.json": "19624cebc5e9cdfaf2a264240b498abeb1d4436fe09c5b0e70b295ac7dd79890",
+        "6pyy_015/baseline/baseline/1002/evaluation.json": "39af5436c9e12870eed907061b3ad4bc8b8e56719c5d19db542849fa622641b1",
+        "6pyy_015/baseline/baseline/1003/evaluation.json": "d0d9cbd36ed059dd3e33d6ca710966515f7cd0451c173da78f1a5d9e7db0827e",
+        "6pyy_015/baseline/baseline/1004/evaluation.json": "c072dce7c00b30f2c13af6775ace1bf2f18528e37e885a95875a5625d9121bed",
+        "6pyy_015/round_001/ring_first_staggered_oxygens/1000/evaluation.json": "0828844a8214ac960734387c4f37634c744064a47af28f46f09744b0be3c5459",
+        "6pyy_015/round_001/ring_first_staggered_oxygens/1001/evaluation.json": "deda243e526db2c37bb61eb8fb3e858618c10bb5eb710a767ecab4092af912a0",
+        "6pyy_015/round_001/oxygen_first_ring_late/1000/evaluation.json": "ecdb52bc37e444fffcdb87f74733eb886223a633ceb9ea2900ebd82e70ac1b54",
+        "6pyy_015/round_001/oxygen_first_ring_late/1001/evaluation.json": "d1822cf493f718fc1b2afd099e8b4fb644d237b0587af00b53ea57c018c08ef2",
+        "6pyy_015/round_002/ring_first_c4_extended_reentry/1000/evaluation.json": "c63da74359075fe484ab66d8138b12086a3eb9c8db1e4f9779c1fe84f066c727",
+        "6pyy_015/round_002/ring_first_c4_extended_reentry/1001/evaluation.json": "dc60699be5801f448f7f6337166e240975af3abfdddaeb8f588aacf78f690d44",
+        "6pyy_015/round_002/ring_first_c4_early_rotation/1000/evaluation.json": "1f9cb483dd0f2131fc6e47d812f8898c4a8c87078041f02c89a439fe7ba93b9c",
+        "6pyy_015/round_002/ring_first_c4_early_rotation/1001/evaluation.json": "b5ddd483873561c504faf863df856bcff577572036683741275bf0e90e589e3a",
+        "6pyy_015/confirmation/ring_first_c4_early_rotation/2000/evaluation.json": "75371a9dae9eabc973d5a80abf758c0323b0e8e2e9c66e89e9d8f5ed1cfb0c2b",
+        "6pyy_015/confirmation/ring_first_c4_early_rotation/2001/evaluation.json": "a30ad5b4f044be3843143066cfb63f0460cafe90d7dcde281721683b5a7f746f",
+        "6pyy_015/confirmation/baseline/2000/evaluation.json": "04a9d4886620bd4e1e3e82cd2e0eb58748b83d0c9bf10d91f861122a689b5428",
+        "6pyy_015/confirmation/baseline/2001/evaluation.json": "aa5f15ebe529771db83fa19d1989d721d5426e45c6ee9db27e7608499dc748dd"
+      },
+      "reference_check": {
+        "structure_pass": true,
+        "atom_recovery": 1.0,
+        "bond_recovery": 1.0,
+        "pic50": 5.816805362701416,
+        "strain": {
+          "status": "ok",
+          "pose_energy": 48.11649277035862,
+          "minimum_energy": 36.62710237626898,
+          "strain_kcal_mol": 11.48939039408964,
+          "heavy_rmsd_A": 0.2974508938014035
+        },
+        "plip": {
+          "expected": 9,
+          "matched": 9,
+          "observed": 9,
+          "recall": 1.0
+        },
+        "bond_hits": {
+          "B:1:5": true,
+          "B:4:8": true,
+          "B:5:8": true,
+          "B:4:13": true,
+          "B:1:16": true,
+          "B:13:16": true
+        }
+      }
+    }
+  },
+  "api_responses": [
+    {
+      "path": "3w54_003/round_001/agent_response_0.json",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 6178,
+        "completion_tokens": 3966,
+        "total_tokens": 10144,
+        "prompt_tokens_details": {
+          "cached_tokens": 128
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 3404
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 6050
+      }
+    },
+    {
+      "path": "3w54_003/round_002/agent_response_0.json",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 12818,
+        "completion_tokens": 6717,
+        "total_tokens": 19535,
+        "prompt_tokens_details": {
+          "cached_tokens": 768
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 6037
+        },
+        "prompt_cache_hit_tokens": 768,
+        "prompt_cache_miss_tokens": 12050
+      }
+    },
+    {
+      "path": "6pyy_015/round_001/agent_response_0.json",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 4710,
+        "completion_tokens": 3801,
+        "total_tokens": 8511,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 3279
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 4710
+      }
+    },
+    {
+      "path": "6pyy_015/round_002/agent_response_0.json",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 8773,
+        "completion_tokens": 3487,
+        "total_tokens": 12260,
+        "prompt_tokens_details": {
+          "cached_tokens": 896
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 2869
+        },
+        "prompt_cache_hit_tokens": 896,
+        "prompt_cache_miss_tokens": 7877
+      }
+    },
+    {
+      "path": "6pyy_015/round_002/agent_response_1.json",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 9414,
+        "completion_tokens": 1523,
+        "total_tokens": 10937,
+        "prompt_tokens_details": {
+          "cached_tokens": 8704
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 924
+        },
+        "prompt_cache_hit_tokens": 8704,
+        "prompt_cache_miss_tokens": 710
+      }
+    }
+  ],
+  "resume_check": {
+    "files_checked": 73,
+    "unchanged_content_and_mtime": true,
+    "generation_count": 34,
+    "api_response_count": 5
+  },
+  "evaluation_count": 34
+}

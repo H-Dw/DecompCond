@@ -1,0 +1,13 @@
+# Small real-backend validation, separate from the 2,120-attempt formal budget.
+extends: defaults.yaml
+data:
+  output_dir: /workspace/DecompCond/runs/interface-feedback
+sampling:
+  seed_count: 5
+  batch_size: 2
+search:
+  rounds: 2
+  paths_per_round: 2
+  candidates_per_path: 2
+  baseline_candidates: 5
+  confirmation_candidates: 2

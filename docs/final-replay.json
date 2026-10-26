@@ -1,0 +1,18 @@
+{
+  "kind": "re-evaluation of existing outputs; no new generations or Agent requests",
+  "results": [
+    {
+      "source": "/workspace/DecompCond/runs/interface-feedback/6pyy_015/baseline/baseline/1000",
+      "primary_metrics_unchanged": true,
+      "recovery_status": "zero_by_failed_attempt_convention_not_measured",
+      "trace_records": 11
+    },
+    {
+      "source": "/workspace/DecompCond/runs/interface-feedback/6pyy_015/round_001/ring_first_staggered_oxygens/1000",
+      "primary_metrics_unchanged": true,
+      "recovery_status": "measured",
+      "trace_records": 11
+    }
+  ],
+  "evaluation_contract_hash_saved": true
+}
