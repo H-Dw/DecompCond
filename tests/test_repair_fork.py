@@ -28,6 +28,17 @@ def fixture(config, tmp_path):
         },
     )
     write_json(parent / "status.json", {"status": "needs_attention"})
+    write_json(
+        parent / "backend_contract.json",
+        {
+            "resolved_args": {"save_dir": str(parent / "backend")},
+            "hparams": {
+                "save_dir": str(parent / "backend"),
+                "learned_setting": "fixed",
+            },
+            "frozen_weights": True,
+        },
+    )
     (parent / ".run.lock").touch()
     for teacher in config.data.teachers:
         teacher_file = parent / teacher.id / "prepared/teacher.txt"
@@ -116,6 +127,16 @@ def test_fork_preserves_parent_and_saved_attempts(config, tmp_path):
     assert report["reused_generated_attempts"] == 2
     assert report["unchanged_existing_evaluations"] == 1
     assert report["new_generation_during_repair"] == 0
+    backend = read_json(destination / "backend_contract.json")
+    assert backend["resolved_args"]["save_dir"] == str(destination / "backend")
+    assert backend["hparams"] == {
+        "save_dir": str(destination / "backend"),
+        "learned_setting": "fixed",
+    }
+    assert backend["frozen_weights"] is True
+    assert read_json(destination / "run.json")["backend_contract_hash"] == digest(
+        backend
+    )
     teacher = config.data.teachers[0].id
     copied_prepared = read_json(destination / teacher / "prepared/prepared.json")
     assert Path(copied_prepared["files"]["teacher"]).is_relative_to(destination)

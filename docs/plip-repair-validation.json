@@ -1,6 +1,6 @@
 {
   "parent_run": "/workspace/DecompCond/runs/feedback10",
-  "repair_run": "/workspace/DecompCond/runs/feedback10-repair01",
+  "repair_run": "/workspace/DecompCond/runs/feedback10-repair03",
   "audit_sha256": "b4005366737612d87f59f76dde60b2b554fd8383a8bb4392fa69a581eb34e7d0",
   "status": "passed",
   "parent_unchanged": true,
@@ -33,5 +33,13 @@
     "local_passed": 34,
     "local_skipped": 2,
     "remote_passed": 37
-  }
+  },
+  "relocated_backend_fields": [
+    "resolved_args.save_dir",
+    "hparams.save_dir"
+  ],
+  "abandoned_pre_execution_forks": [
+    "/workspace/DecompCond/runs/feedback10-repair01",
+    "/workspace/DecompCond/runs/feedback10-repair02"
+  ]
 }

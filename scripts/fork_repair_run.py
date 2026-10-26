@@ -119,6 +119,15 @@ def fork_repair(parent, config, audit_file, allowed_modules):
             config=config.model_dump(),
             algorithm_sha256=current_algorithm,
         )
+        # ROOT records its output directory in resolved_args and loaded hparams.
+        # Relocate that operational field; every scientific backend field stays.
+        backend_contract = read_json(parent / "backend_contract.json")
+        for section in ("resolved_args", "hparams"):
+            if backend_contract[section]["save_dir"] != str(parent / "backend"):
+                raise ValueError("unexpected parent backend output directory")
+            backend_contract[section]["save_dir"] = str(destination / "backend")
+        manifest["backend_contract_hash"] = digest(backend_contract)
+        write_json(destination / "backend_contract.json", backend_contract)
         write_json(destination / "run.json", manifest)
         shutil.copytree(
             repair_folder, destination / failed_file.parent, dirs_exist_ok=True
@@ -138,6 +147,7 @@ def fork_repair(parent, config, audit_file, allowed_modules):
             "unchanged_existing_evaluations": len(evaluations),
             "repaired_evaluations": 1,
             "new_generation_during_repair": 0,
+            "relocated_backend_fields": ["resolved_args.save_dir", "hparams.save_dir"],
             "absolute_artifact_references": "raw outputs retain parent references and source hashes; prepared inputs are copied",
         }
         write_json(destination / "repair_provenance.json", proof)
