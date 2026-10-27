@@ -147,9 +147,12 @@ class RootBackend:
             raw_final_readout=True,
             learned_parameters_added=False,
             known_network_time=known_time,
+            integration_end_time=config.sampling.integration_end_time,
+            readout=config.sampling.readout,
+            initial_self_condition_coords=config.sampling.initial_self_condition_coords,
             rng_policy="per-attempt forked RNG; same seed across paths",
             update_count=config.sampling.steps,
-            final_forward_count=1,
+            final_forward_count=int(config.sampling.readout == "extra_prediction"),
         )
 
     def pocket(self, prepared, batch_size):
@@ -249,7 +252,11 @@ class RootBackend:
         rng = [b for _, b in initial]
         current = {k: v.clone() for k, v in prior.items()}
         cache = dict(
-            coords=prior["coords"].clone(),
+            coords=(
+                prior["coords"].clone()
+                if c.sampling.initial_self_condition_coords == "prior"
+                else torch.zeros_like(prior["coords"])
+            ),
             atomics=torch.zeros_like(prior["atomics"]),
             bonds=torch.zeros_like(prior["bonds"]),
         )
@@ -259,7 +266,9 @@ class RootBackend:
             [torch.as_tensor(s.com, device=self.device) for s in p["complex"]]
         ).reshape(bs, 3)
         times = [torch.zeros(bs, device=self.device) for _ in range(3)]
-        points = torch.linspace(0, 1, c.sampling.steps + 1, device=self.device)
+        points = torch.linspace(
+            0, c.sampling.integration_end_time, c.sampling.steps + 1, device=self.device
+        )
         pe, pi = m.gen.get_pocket_encoding(
             p["coords"],
             p["atom_names"],
@@ -271,6 +280,7 @@ class RootBackend:
         traces = [[] for _ in jobs]
         failures = [None for _ in jobs]
         previous_active = [set() for _ in jobs]
+        forward_count = 0
         for step in range(c.sampling.steps):
             active = [job["path"]["expanded"][step] for job in jobs]
             payload = encode_payload(
@@ -296,6 +306,7 @@ class RootBackend:
                     training=False,
                 )
             )
+            forward_count += 1
             for _ in range(m.sc_recycle_steps - 1):
                 predicted, next_cache = m._get_predictions(
                     m(
@@ -308,6 +319,12 @@ class RootBackend:
                         training=False,
                     )
                 )
+                forward_count += 1
+            # Snapshot the unprojected prediction before the solver can reuse tensors.
+            # In last_prediction mode this is the returned clean prediction, not S_end.
+            if step == c.sampling.steps - 1 and c.sampling.readout == "last_prediction":
+                raw = {k: v.detach().clone() for k, v in predicted.items() if torch.is_tensor(v)}
+                readout_time = float(times[0][0])
             proposed = []
             for index in range(bs):
                 if not finite_state(row(predicted, index)) or not finite_state(
@@ -369,18 +386,21 @@ class RootBackend:
             current = project(proposal, payload)
             cache = {k: v.detach() for k, v in next_cache.items() if torch.is_tensor(v)}
             times = m._update_times(times, points[step + 1] - points[step])
-        times = m._update_times(times, -c.sampling.final_epsilon)
-        raw, _ = m._get_predictions(
-            m(
-                current,
-                p,
-                times,
-                cond_batch=cache,
-                pocket_equis=pe,
-                pocket_invs=pi,
-                training=False,
+        if c.sampling.readout == "extra_prediction":
+            times = m._update_times(times, -c.sampling.final_epsilon)
+            raw, _ = m._get_predictions(
+                m(
+                    current,
+                    p,
+                    times,
+                    cond_batch=cache,
+                    pocket_equis=pe,
+                    pocket_invs=pi,
+                    training=False,
+                )
             )
-        )
+            forward_count += 1
+            readout_time = float(times[0][0])
         world = self.world(raw, p)
         results = []
         for index, job in enumerate(jobs):
@@ -415,7 +435,12 @@ class RootBackend:
                     trace=traces[index],
                     seed=job["seed"],
                     updates=c.sampling.steps,
-                    nfe=c.sampling.steps * m.sc_recycle_steps + 1,
+                    nfe=forward_count,
+                    readout=c.sampling.readout,
+                    readout_global_time=readout_time,
+                    integration_end_time=c.sampling.integration_end_time,
+                    known_network_time=c.sampling.known_time,
+                    initial_self_condition_coords=c.sampling.initial_self_condition_coords,
                     condition_hash=library["hash"],
                     schedule_hash=job["path"]["schedule_hash"],
                 )

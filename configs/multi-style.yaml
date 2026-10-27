@@ -1,0 +1,12 @@
+# Sampling conventions from jule-c/flowr commit bbb8bfb4e8d8dd16bff1d56a7f96246920e643ba.
+# ROOT weights, solver and evaluation remain unchanged. Use a NEW run directory.
+extends: research-cycle01.yaml
+data:
+  output_dir: /workspace/DecompCond/runs/multi-style-v1
+sampling:
+  known_time: 0.999
+  integration_end_time: 0.999
+  readout: last_prediction
+  initial_self_condition_coords: zeros
+  final_epsilon: null
+  confirmation_seed_start: 4000

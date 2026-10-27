@@ -42,7 +42,10 @@ class Sampling(Strict):
     steps: int = Field(gt=0)
     segment_multiple: int = Field(gt=0)
     known_time: float = Field(ge=0, le=1)
-    final_epsilon: float = Field(gt=0, lt=1)
+    integration_end_time: float = Field(gt=0, le=1)
+    readout: Literal["extra_prediction", "last_prediction"]
+    initial_self_condition_coords: Literal["prior", "zeros"]
+    final_epsilon: float | None = Field(gt=0, lt=1)
     seed_count: int = Field(gt=0)
     discovery_seed_start: int = Field(ge=0)
     confirmation_seed_start: int = Field(ge=0)
@@ -53,6 +56,13 @@ class Sampling(Strict):
 
     @model_validator(mode="after")
     def coherent(self):
+        if self.readout == "extra_prediction" and (
+            self.final_epsilon is None
+            or self.final_epsilon >= self.integration_end_time
+        ):
+            raise ValueError("extra prediction requires epsilon below the integration endpoint")
+        if self.readout == "last_prediction" and self.final_epsilon is not None:
+            raise ValueError("last prediction requires final_epsilon=null; no extra forward is performed")
         if self.steps % self.segment_multiple:
             raise ValueError("steps must be divisible by segment_multiple")
         a = set(

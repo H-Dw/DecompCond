@@ -74,7 +74,14 @@ S_n^{in}=P_{A_n}(S_n),\quad
 
 已选原子的连续和离散网络时间为 `known_time`，其余为全局时间。**该局部时间仅进入网络编码**；积分器使用 ROOT 原生的全局时间与更新公式，不将局部时间放入 `1−t` 分母。电荷虽共享原生时间编码，但没有新增电荷投影。
 
-`SC` 由未覆盖预测产生；既不写入参考标签，也不把输出投影后的状态冒充模型预测。100 次更新后做一次原生最终预测，时间为 `1−final_epsilon`，不再积分、不再投影。默认总前向数为 101；增加配置中的 self-conditioning recycle 次数会增加前向数，但不改变积分更新数。
+自条件缓存由未覆盖预测产生；既不写入参考标签，也不把输出投影后的状态冒充模型预测。读出方式、全局积分终点和初始缓存坐标均由配置控制，并进入运行合同。
+
+- 历史配置 `defaults.yaml`：已知时间 1.0，全局积分到 1.0，初始缓存坐标为先验；`readout: extra_prediction` 在终点减去 `final_epsilon` 后额外预测一次。默认共 100 次更新、101 次前向。
+- FLOWR/MULTI 风格配置 `configs/multi-style.yaml`：已知时间 0.999，全局积分到 0.999，初始缓存坐标为零；`readout: last_prediction` 直接返回最后一次循环内的未覆盖预测，`final_epsilon: null`。默认共 100 次更新、100 次前向。生成权重、先验和积分器仍为 ROOT，不宣称复现 MULTI 模型。
+
+新配置的全局步长为 `0.999 / 100 = 0.00999`；最后一次循环预测的全局时间为 `99 × 0.00999 = 0.98901`，随后仍执行最后一次积分到 0.999，但返回先前保存的 clean 预测。不能将最终积分状态或再次前向的结果冒充该预测。活动原子的网络时间始终为配置中的已知时间，未活动原子使用全局时间；局部时间不进入积分分母。所有路径区段按 0–99 的更新索引解释，10 步粒度不变。增加自条件 recycle 次数会增加前向数，不改变积分更新数。
+
+两种读出均不在末端贴回参考标签或坐标。方法变更使用独立输出目录，不能混入正在执行的冻结轮次；详见 [MULTI 风格采样合同](docs/multi-style.zh-CN.md)。
 
 ## 4. 规范伪代码
 
@@ -201,29 +208,33 @@ PLIP 的 PDB 往返可能改变芳香性/键级；实现将原始 SDF 图转移�
 
 ### Algorithm 5 — 单候选联合 inpainting
 
-**Require:** 冻结路径 \(\Pi\)、条件库 \(C\)、ROOT、受体 \(E\)、时间表 \(T\)、随机流 \(\xi\)。
+**Require:** 冻结路径 `path`、条件库 `conditions`、冻结 ROOT `model`、受体 `receptor`、随机流 `random_stream`、配置 `config`。
 
 **Ensure:** 未覆盖的实际模型终态、轨迹诊断，或生成失败。
 
 ```text
- 1  S0, SC, slots ← NativeInitialize(C,E,ξ,K)                        ▷ 根据配置原子数采样先验，建立稳定槽位
- 2  S ← S0
- 3  for n = 0, …, N−1 do
- 4      U ← UniqueUnion(C[Π.ActiveIDs(n)])                          ▷ 允许 U 为空
- 5      payload ← EncodeReferencesWithExplicitMasks(U,slots,frame)  ▷ XYZ/元素共用原子掩码，键掩码独立
- 6      Sin ← InpaintCopy(S,payload)                                ▷ 本步预测前激活或重入条件
- 7      τ ← BuildPerAtomNetworkTimes(T[n],payload,K.known_time)      ▷ 不修改全局积分时间
- 8      Yraw, SCnext ← PredictRoot(Fθ,Sin,E,τ,SC)                    ▷ 原始预测始终保留
- 9      if Yraw nonfinite then return GenerationFailure(n)
-10      proposal ← NativeStep(Sin,Yraw,S0,T[n],T[n+1],ξ)            ▷ ROOT 原生积分器、同一候选随机流
-11      if proposal nonfinite then return GenerationFailure(n)
-12      RecordActivationReleaseAndRestoration(S,Sin,proposal,U)
-13      proposal ← InpaintCopy(proposal,payload)                    ▷ 原生更新后恢复仍然活动的事实
-14      S, SC ← CommitOnce(proposal,Detach(SCnext))                  ▷ 缓存不贴回参考；关闭时不重置
-15  end for
-16  raw ← NativeFinalPrediction(S,SC,E,1−K.final_epsilon)            ▷ 最后读取状态，不在 t=1 追加积分
-17  if raw nonfinite then return GenerationFailure(N)
-18  return DecodeWithoutProjection(raw,slots,frame), raw, trace     ▷ 末端不覆盖标签、键或坐标
+ 1  prior, slots ← NativeInitialize(conditions,receptor,random_stream,config)
+ 2  state ← Copy(prior); cache ← InitializeSelfCondition(prior,config) ▷ 初始坐标缓存显式选择零或先验
+ 3  timeline ← LinearGrid(0,config.integration_end_time,config.steps+1)
+ 4  for step = 0, …, config.steps−1 do                              ▷ 路径使用更新索引，默认 100 次
+ 5      active ← UniqueUnion(conditions[path.ActiveIDs(step)])       ▷ 允许空条件、撤下和重入
+ 6      payload ← EncodeReferencesWithExplicitMasks(active,slots)    ▷ 元素/XYZ 绑定，键使用独立掩码
+ 7      model_input ← InpaintCopy(state,payload)
+ 8      network_times ← BuildPerAtomTimes(timeline[step],payload,config.known_time)
+ 9      prediction,next_cache ← PredictRoot(model,model_input,receptor,network_times,cache)
+10      if prediction or next_cache nonfinite then return GenerationFailure(step)
+11      if step = config.steps−1 and config.readout = last_prediction then
+12          output ← DetachedCopy(prediction)                       ▷ 在积分前保存，避免张量别名改变输出
+13      proposal ← NativeStep(model_input,prediction,prior,timeline[step],timeline[step+1],random_stream)
+14      if proposal nonfinite then return GenerationFailure(step)   ▷ 最后一次积分失败也不可隐藏
+15      RecordActivationReleaseAndRestoration(state,model_input,proposal,active)
+16      state ← InpaintCopy(proposal,payload); cache ← Detach(next_cache)
+17  end for
+18  if config.readout = extra_prediction then                       ▷ 仅历史读出分支追加一次预测
+19      readout_time ← config.integration_end_time−config.final_epsilon
+20      output ← PredictRootAtGlobalTime(model,state,receptor,readout_time,cache)
+21  if output nonfinite then return GenerationFailure(config.steps)
+22  return DecodeWithoutProjection(output,slots,frame), output, trace ▷ 两分支均禁止末端参考覆盖
 ```
 
 实现：`backends.root.RootBackend.generate_batch` 与 `inpainting`。批内失败行记录为失败，只保留有限占位状态使其他候选完成，不将占位输出作为成功样本。ROOT 权重逐张量核验，全部关闭梯度。
