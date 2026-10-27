@@ -12,4 +12,4 @@ sampling:
   confirmation_seed_start: 4000
 agent:
   guidance_file: skills/path-planning-multi/SKILL.md
-  guidance_sha256: c2473cfc1241e576a9c72794c84aaa6a59801d5f0d195a77afac5a2766f9d76b
+  guidance_sha256: 832d770d5002b65795272fc2ebb178b1f8b00230b774cd3771c7aa5778c52b22

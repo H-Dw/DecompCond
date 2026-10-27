@@ -1,0 +1,674 @@
+{
+  "status": "passed",
+  "technical_attempts": 34,
+  "formal_attempts": 0,
+  "baseline_seeds": [
+    50000,
+    50001
+  ],
+  "agent_seeds": [
+    50002
+  ],
+  "variants": {
+    "legacy": {
+      "6pyy_015": {
+        "attempts": 2,
+        "structure_pass_count": 0,
+        "J": 0.0,
+        "outcomes": {
+          "chemical_invalid": 2
+        },
+        "distributions": {
+          "atom_recovery": {
+            "n": 2,
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "bond_recovery": {
+            "n": 2,
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery": {
+            "n": 2,
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "selected_rmsd_A": {
+            "n": 0,
+            "mean": null,
+            "std": null,
+            "min": null,
+            "max": null
+          },
+          "selected_max_displacement_A": {
+            "n": 0,
+            "mean": null,
+            "std": null,
+            "min": null,
+            "max": null
+          }
+        },
+        "valid_delta_pic50": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "min": null,
+          "max": null
+        }
+      },
+      "3w54_003": {
+        "attempts": 2,
+        "structure_pass_count": 0,
+        "J": 0.0,
+        "outcomes": {
+          "evaluated": 1,
+          "chemical_invalid": 1
+        },
+        "distributions": {
+          "atom_recovery": {
+            "n": 2,
+            "mean": 0.2777777777777778,
+            "std": 0.3928371006591931,
+            "min": 0.0,
+            "max": 0.5555555555555556
+          },
+          "bond_recovery": {
+            "n": 2,
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery": {
+            "n": 2,
+            "mean": 0.1388888888888889,
+            "std": 0.19641855032959654,
+            "min": 0.0,
+            "max": 0.2777777777777778
+          },
+          "selected_rmsd_A": {
+            "n": 1,
+            "mean": 1.7224169340718474,
+            "std": 0.0,
+            "min": 1.7224169340718474,
+            "max": 1.7224169340718474
+          },
+          "selected_max_displacement_A": {
+            "n": 1,
+            "mean": 3.312041764741786,
+            "std": 0.0,
+            "min": 3.312041764741786,
+            "max": 3.312041764741786
+          }
+        },
+        "valid_delta_pic50": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "min": null,
+          "max": null
+        }
+      }
+    },
+    "known_time_only": {
+      "6pyy_015": {
+        "attempts": 2,
+        "structure_pass_count": 2,
+        "J": 1.0,
+        "outcomes": {
+          "evaluated": 2
+        },
+        "distributions": {
+          "atom_recovery": {
+            "n": 2,
+            "mean": 1.0,
+            "std": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "bond_recovery": {
+            "n": 2,
+            "mean": 1.0,
+            "std": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "recovery": {
+            "n": 2,
+            "mean": 1.0,
+            "std": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "selected_rmsd_A": {
+            "n": 2,
+            "mean": 0.3748557176851982,
+            "std": 0.09117602885610117,
+            "min": 0.3103845293993887,
+            "max": 0.43932690597100765
+          },
+          "selected_max_displacement_A": {
+            "n": 2,
+            "mean": 0.5270236978019626,
+            "std": 0.08887351383187679,
+            "min": 0.46418063350356603,
+            "max": 0.589866762100359
+          }
+        },
+        "valid_delta_pic50": {
+          "n": 2,
+          "mean": -0.34805965423583984,
+          "std": 0.3164567460583491,
+          "min": -0.5718283653259277,
+          "max": -0.12429094314575195
+        }
+      },
+      "3w54_003": {
+        "attempts": 2,
+        "structure_pass_count": 2,
+        "J": 0.8333333333333333,
+        "outcomes": {
+          "evaluated": 2
+        },
+        "distributions": {
+          "atom_recovery": {
+            "n": 2,
+            "mean": 1.0,
+            "std": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "bond_recovery": {
+            "n": 2,
+            "mean": 0.6666666666666666,
+            "std": 0.0,
+            "min": 0.6666666666666666,
+            "max": 0.6666666666666666
+          },
+          "recovery": {
+            "n": 2,
+            "mean": 0.8333333333333333,
+            "std": 0.0,
+            "min": 0.8333333333333333,
+            "max": 0.8333333333333333
+          },
+          "selected_rmsd_A": {
+            "n": 2,
+            "mean": 0.6935077376259231,
+            "std": 0.21176407385690665,
+            "min": 0.5437679249900155,
+            "max": 0.8432475502618306
+          },
+          "selected_max_displacement_A": {
+            "n": 2,
+            "mean": 1.237480092014771,
+            "std": 0.17493985263884643,
+            "min": 1.1137789359140673,
+            "max": 1.3611812481154746
+          }
+        },
+        "valid_delta_pic50": {
+          "n": 2,
+          "mean": -2.3671774864196777,
+          "std": 0.5463937671439587,
+          "min": -2.7535362243652344,
+          "max": -1.980818748474121
+        }
+      }
+    },
+    "last_prediction_only": {
+      "6pyy_015": {
+        "attempts": 2,
+        "structure_pass_count": 0,
+        "J": 0.0,
+        "outcomes": {
+          "chemical_invalid": 2
+        },
+        "distributions": {
+          "atom_recovery": {
+            "n": 2,
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "bond_recovery": {
+            "n": 2,
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery": {
+            "n": 2,
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "selected_rmsd_A": {
+            "n": 0,
+            "mean": null,
+            "std": null,
+            "min": null,
+            "max": null
+          },
+          "selected_max_displacement_A": {
+            "n": 0,
+            "mean": null,
+            "std": null,
+            "min": null,
+            "max": null
+          }
+        },
+        "valid_delta_pic50": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "min": null,
+          "max": null
+        }
+      },
+      "3w54_003": {
+        "attempts": 2,
+        "structure_pass_count": 0,
+        "J": 0.0,
+        "outcomes": {
+          "evaluated": 1,
+          "chemical_invalid": 1
+        },
+        "distributions": {
+          "atom_recovery": {
+            "n": 2,
+            "mean": 0.2222222222222222,
+            "std": 0.31426968052735443,
+            "min": 0.0,
+            "max": 0.4444444444444444
+          },
+          "bond_recovery": {
+            "n": 2,
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery": {
+            "n": 2,
+            "mean": 0.1111111111111111,
+            "std": 0.15713484026367722,
+            "min": 0.0,
+            "max": 0.2222222222222222
+          },
+          "selected_rmsd_A": {
+            "n": 1,
+            "mean": 1.758966939762553,
+            "std": 0.0,
+            "min": 1.758966939762553,
+            "max": 1.758966939762553
+          },
+          "selected_max_displacement_A": {
+            "n": 1,
+            "mean": 3.3698462098745825,
+            "std": 0.0,
+            "min": 3.3698462098745825,
+            "max": 3.3698462098745825
+          }
+        },
+        "valid_delta_pic50": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "min": null,
+          "max": null
+        }
+      }
+    },
+    "shortened_endpoint": {
+      "6pyy_015": {
+        "attempts": 2,
+        "structure_pass_count": 0,
+        "J": 0.0,
+        "outcomes": {
+          "chemical_invalid": 2
+        },
+        "distributions": {
+          "atom_recovery": {
+            "n": 2,
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "bond_recovery": {
+            "n": 2,
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery": {
+            "n": 2,
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "selected_rmsd_A": {
+            "n": 0,
+            "mean": null,
+            "std": null,
+            "min": null,
+            "max": null
+          },
+          "selected_max_displacement_A": {
+            "n": 0,
+            "mean": null,
+            "std": null,
+            "min": null,
+            "max": null
+          }
+        },
+        "valid_delta_pic50": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "min": null,
+          "max": null
+        }
+      },
+      "3w54_003": {
+        "attempts": 2,
+        "structure_pass_count": 0,
+        "J": 0.0,
+        "outcomes": {
+          "evaluated": 1,
+          "chemical_invalid": 1
+        },
+        "distributions": {
+          "atom_recovery": {
+            "n": 2,
+            "mean": 0.2222222222222222,
+            "std": 0.31426968052735443,
+            "min": 0.0,
+            "max": 0.4444444444444444
+          },
+          "bond_recovery": {
+            "n": 2,
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery": {
+            "n": 2,
+            "mean": 0.1111111111111111,
+            "std": 0.15713484026367722,
+            "min": 0.0,
+            "max": 0.2222222222222222
+          },
+          "selected_rmsd_A": {
+            "n": 1,
+            "mean": 1.7585766674871735,
+            "std": 0.0,
+            "min": 1.7585766674871735,
+            "max": 1.7585766674871735
+          },
+          "selected_max_displacement_A": {
+            "n": 1,
+            "mean": 3.3655097521948867,
+            "std": 0.0,
+            "min": 3.3655097521948867,
+            "max": 3.3655097521948867
+          }
+        },
+        "valid_delta_pic50": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "min": null,
+          "max": null
+        }
+      }
+    },
+    "multi_prior_cache": {
+      "6pyy_015": {
+        "attempts": 2,
+        "structure_pass_count": 2,
+        "J": 1.0,
+        "outcomes": {
+          "evaluated": 2
+        },
+        "distributions": {
+          "atom_recovery": {
+            "n": 2,
+            "mean": 1.0,
+            "std": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "bond_recovery": {
+            "n": 2,
+            "mean": 1.0,
+            "std": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "recovery": {
+            "n": 2,
+            "mean": 1.0,
+            "std": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "selected_rmsd_A": {
+            "n": 2,
+            "mean": 0.3943668011712529,
+            "std": 0.09309088080858129,
+            "min": 0.3285416080848764,
+            "max": 0.46019199425762936
+          },
+          "selected_max_displacement_A": {
+            "n": 2,
+            "mean": 0.56734078436174,
+            "std": 0.09361791803128627,
+            "min": 0.5011429196812511,
+            "max": 0.6335386490422289
+          }
+        },
+        "valid_delta_pic50": {
+          "n": 2,
+          "mean": -0.4153463840484619,
+          "std": 0.19113258624902357,
+          "min": -0.5504975318908691,
+          "max": -0.2801952362060547
+        }
+      },
+      "3w54_003": {
+        "attempts": 2,
+        "structure_pass_count": 2,
+        "J": 0.8333333333333333,
+        "outcomes": {
+          "evaluated": 2
+        },
+        "distributions": {
+          "atom_recovery": {
+            "n": 2,
+            "mean": 1.0,
+            "std": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "bond_recovery": {
+            "n": 2,
+            "mean": 0.6666666666666666,
+            "std": 0.0,
+            "min": 0.6666666666666666,
+            "max": 0.6666666666666666
+          },
+          "recovery": {
+            "n": 2,
+            "mean": 0.8333333333333333,
+            "std": 0.0,
+            "min": 0.8333333333333333,
+            "max": 0.8333333333333333
+          },
+          "selected_rmsd_A": {
+            "n": 2,
+            "mean": 0.7281824385326514,
+            "std": 0.22390905761301205,
+            "min": 0.5698548255254012,
+            "max": 0.8865100515399016
+          },
+          "selected_max_displacement_A": {
+            "n": 2,
+            "mean": 1.2868037247658128,
+            "std": 0.20287501150486567,
+            "min": 1.1433494283974235,
+            "max": 1.4302580211342022
+          }
+        },
+        "valid_delta_pic50": {
+          "n": 2,
+          "mean": -2.3718338012695312,
+          "std": 0.4868372356249727,
+          "min": -2.7160797119140625,
+          "max": -2.027587890625
+        }
+      }
+    },
+    "multi_style": {
+      "6pyy_015": {
+        "attempts": 2,
+        "structure_pass_count": 2,
+        "J": 1.0,
+        "outcomes": {
+          "evaluated": 2
+        },
+        "distributions": {
+          "atom_recovery": {
+            "n": 2,
+            "mean": 1.0,
+            "std": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "bond_recovery": {
+            "n": 2,
+            "mean": 1.0,
+            "std": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "recovery": {
+            "n": 2,
+            "mean": 1.0,
+            "std": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "selected_rmsd_A": {
+            "n": 2,
+            "mean": 0.5130776941228761,
+            "std": 0.02471342555384105,
+            "min": 0.4956026633274062,
+            "max": 0.530552724918346
+          },
+          "selected_max_displacement_A": {
+            "n": 2,
+            "mean": 0.7919987685906182,
+            "std": 0.13161393466418536,
+            "min": 0.6989336628909295,
+            "max": 0.8850638742903069
+          }
+        },
+        "valid_delta_pic50": {
+          "n": 2,
+          "mean": -0.5955154895782471,
+          "std": 0.029356797274384085,
+          "min": -0.6162738800048828,
+          "max": -0.5747570991516113
+        }
+      },
+      "3w54_003": {
+        "attempts": 2,
+        "structure_pass_count": 2,
+        "J": 0.75,
+        "outcomes": {
+          "evaluated": 2
+        },
+        "distributions": {
+          "atom_recovery": {
+            "n": 2,
+            "mean": 1.0,
+            "std": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "bond_recovery": {
+            "n": 2,
+            "mean": 0.5,
+            "std": 0.23570226039551584,
+            "min": 0.3333333333333333,
+            "max": 0.6666666666666666
+          },
+          "recovery": {
+            "n": 2,
+            "mean": 0.75,
+            "std": 0.11785113019775789,
+            "min": 0.6666666666666666,
+            "max": 0.8333333333333333
+          },
+          "selected_rmsd_A": {
+            "n": 2,
+            "mean": 0.7010580780689559,
+            "std": 0.27449459134502074,
+            "min": 0.5069610911298615,
+            "max": 0.8951550650080503
+          },
+          "selected_max_displacement_A": {
+            "n": 2,
+            "mean": 1.2066898783290838,
+            "std": 0.30711136676861006,
+            "min": 0.9895293483075307,
+            "max": 1.423850408350637
+          }
+        },
+        "valid_delta_pic50": {
+          "n": 2,
+          "mean": -2.198418140411377,
+          "std": 0.2803345366609963,
+          "min": -2.3966445922851562,
+          "max": -2.0001916885375977
+        }
+      }
+    }
+  },
+  "agent_probes": {
+    "6pyy_015": {
+      "paths": 5,
+      "attempts": 5,
+      "qualified": 5,
+      "proposal_responses": 2,
+      "sampling_contract_hash": "5b545021970ad9c8ed06a69275a7dce12f3174ec8bbf35aa550a4a12a1380e17",
+      "guidance_sha256": "832d770d5002b65795272fc2ebb178b1f8b00230b774cd3771c7aa5778c52b22"
+    },
+    "3w54_003": {
+      "paths": 5,
+      "attempts": 5,
+      "qualified": 3,
+      "proposal_responses": 1,
+      "sampling_contract_hash": "5b545021970ad9c8ed06a69275a7dce12f3174ec8bbf35aa550a4a12a1380e17",
+      "guidance_sha256": "832d770d5002b65795272fc2ebb178b1f8b00230b774cd3771c7aa5778c52b22"
+    }
+  },
+  "source_archive_sha256": "062f06b1c5b03d17fba308634768b2ddc0b4a4195b79b7d25d7083820fe2d661",
+  "tests": "65 passed",
+  "files_checked": 68
+}

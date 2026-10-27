@@ -1,0 +1,34 @@
+base_config: multi-style.yaml
+output_dir: /workspace/DecompCond/multi-style-v1/technical-validation
+parent_run: /workspace/DecompCond/runs/research-cycle01
+baseline_seeds: [50000, 50001]
+agent_seeds: [50002]
+agent_variant: multi_style
+variants:
+  legacy:
+    - sampling.known_time=1.0
+    - sampling.integration_end_time=1.0
+    - sampling.readout=extra_prediction
+    - sampling.final_epsilon=0.0001
+    - sampling.initial_self_condition_coords=prior
+  known_time_only:
+    - sampling.known_time=0.999
+    - sampling.integration_end_time=1.0
+    - sampling.readout=extra_prediction
+    - sampling.final_epsilon=0.0001
+    - sampling.initial_self_condition_coords=prior
+  last_prediction_only:
+    - sampling.known_time=1.0
+    - sampling.integration_end_time=1.0
+    - sampling.readout=last_prediction
+    - sampling.final_epsilon=null
+    - sampling.initial_self_condition_coords=prior
+  shortened_endpoint:
+    - sampling.known_time=1.0
+    - sampling.integration_end_time=0.999
+    - sampling.readout=last_prediction
+    - sampling.final_epsilon=null
+    - sampling.initial_self_condition_coords=prior
+  multi_prior_cache:
+    - sampling.initial_self_condition_coords=prior
+  multi_style: []
