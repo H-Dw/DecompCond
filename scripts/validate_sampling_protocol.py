@@ -72,7 +72,11 @@ def main():
                     variant_records[teacher] = dict(baseline=records[0])
                     if variant == plan.agent_variant:
                         folder = Path(config.data.output_dir) / teacher / "planner_validation"
-                        feedback = build_feedback(dict(baseline=records[0], rounds=[]), library, 1, enhanced=True)
+                        feedback = build_feedback(
+                            dict(baseline=records[0], rounds=[]), library, 1,
+                            enhanced=config.agent.enhanced_feedback,
+                            contrast=config.agent.contrast_feedback,
+                        )
                         feedback["validation_notice"] = (
                             "Small technical interface test. Only supplied new-protocol baseline attempts "
                             "are evidence; no formal confirmation or historical protocol metrics are supplied."

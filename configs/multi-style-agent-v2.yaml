@@ -1,0 +1,9 @@
+extends: multi-style.yaml
+data:
+  output_dir: /workspace/DecompCond/runs/multi-style-agent-v2
+sampling:
+  confirmation_seed_start: 5000
+agent:
+  contrast_feedback: true
+  guidance_file: skills/path-planning-contrast/SKILL.md
+  guidance_sha256: 9e9170d9263fb4eac2fcccbc83e8ce6a793abfe694a7bea7291f31ca3236a5fe

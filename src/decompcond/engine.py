@@ -271,7 +271,8 @@ class Experiment:
             round_dir = teacher_dir / f"round_{r:03d}"
             frozen = round_dir / "plan.json"
             feedback = build_feedback(
-                history, library, r, enhanced=c.agent.enhanced_feedback
+                history, library, r, enhanced=c.agent.enhanced_feedback,
+                contrast=c.agent.contrast_feedback,
             )
             write_json(round_dir / "feedback.json", feedback)
             expected = dict(

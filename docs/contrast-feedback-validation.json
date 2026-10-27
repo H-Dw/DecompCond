@@ -1,0 +1,162 @@
+{
+  "status": "passed",
+  "technical_attempts": 14,
+  "formal_attempts": 0,
+  "tests": {
+    "remote_passed": 68,
+    "local_passed": 56,
+    "local_skipped": 4
+  },
+  "technical_seeds": {
+    "baseline": [
+      51000,
+      51001
+    ],
+    "agent": [
+      51002
+    ]
+  },
+  "teachers": {
+    "6pyy_015": {
+      "baseline": {
+        "attempts": 2,
+        "structure_pass_count": 1,
+        "qualified_exact_recovery_count": 1,
+        "J": 0.5
+      },
+      "agent_probe": {
+        "paths": 5,
+        "attempts": 5,
+        "structure_pass_count": 5,
+        "qualified_exact_recovery_count": 2
+      },
+      "feedback_version": "contrast-history-v2",
+      "guidance_sha256": "9e9170d9263fb4eac2fcccbc83e8ce6a793abfe694a7bea7291f31ca3236a5fe",
+      "history_planner_probe": {
+        "validated_paths": 5,
+        "exact_exposure_matches": 16,
+        "status": "passed",
+        "previous_rounds": 6,
+        "generated_candidates": 0,
+        "primary_progress": {
+          "completed_rounds": 6,
+          "best_primary_score": 0.9152777777777777,
+          "last_strict_primary_improvement_round": 4,
+          "rounds_since_strict_primary_improvement": 2,
+          "rounds": [
+            {
+              "round": 1,
+              "batch_best_primary": 0.9083333333333333,
+              "best_primary_so_far": 0.9083333333333333
+            },
+            {
+              "round": 2,
+              "batch_best_primary": 0.8138888888888889,
+              "best_primary_so_far": 0.9083333333333333
+            },
+            {
+              "round": 3,
+              "batch_best_primary": 0.8888888888888888,
+              "best_primary_so_far": 0.9083333333333333
+            },
+            {
+              "round": 4,
+              "batch_best_primary": 0.9152777777777777,
+              "best_primary_so_far": 0.9152777777777777
+            },
+            {
+              "round": 5,
+              "batch_best_primary": 0.8722222222222222,
+              "best_primary_so_far": 0.9152777777777777
+            },
+            {
+              "round": 6,
+              "batch_best_primary": 0.8208333333333333,
+              "best_primary_so_far": 0.9152777777777777
+            }
+          ],
+          "interpretation": "Descriptive primary-score history including baseline; affinity tie-break gains may occur without a strict primary gain. No early stopping is implied."
+        }
+      }
+    },
+    "3w54_003": {
+      "baseline": {
+        "attempts": 2,
+        "structure_pass_count": 2,
+        "qualified_exact_recovery_count": 0,
+        "J": 0.8333333333333333
+      },
+      "agent_probe": {
+        "paths": 5,
+        "attempts": 5,
+        "structure_pass_count": 3,
+        "qualified_exact_recovery_count": 0
+      },
+      "feedback_version": "contrast-history-v2",
+      "guidance_sha256": "9e9170d9263fb4eac2fcccbc83e8ce6a793abfe694a7bea7291f31ca3236a5fe",
+      "history_planner_probe": {
+        "validated_paths": 5,
+        "exact_exposure_matches": 9,
+        "status": "passed",
+        "previous_rounds": 6,
+        "generated_candidates": 0,
+        "primary_progress": {
+          "completed_rounds": 6,
+          "best_primary_score": 0.8305555555555555,
+          "last_strict_primary_improvement_round": 4,
+          "rounds_since_strict_primary_improvement": 2,
+          "rounds": [
+            {
+              "round": 1,
+              "batch_best_primary": 0.7805555555555554,
+              "best_primary_so_far": 0.7805555555555554
+            },
+            {
+              "round": 2,
+              "batch_best_primary": 0.7305555555555555,
+              "best_primary_so_far": 0.7805555555555554
+            },
+            {
+              "round": 3,
+              "batch_best_primary": 0.8277777777777777,
+              "best_primary_so_far": 0.8277777777777777
+            },
+            {
+              "round": 4,
+              "batch_best_primary": 0.8305555555555555,
+              "best_primary_so_far": 0.8305555555555555
+            },
+            {
+              "round": 5,
+              "batch_best_primary": 0.8277777777777777,
+              "best_primary_so_far": 0.8305555555555555
+            },
+            {
+              "round": 6,
+              "batch_best_primary": 0.7888888888888889,
+              "best_primary_so_far": 0.8305555555555555
+            }
+          ],
+          "interpretation": "Descriptive primary-score history including baseline; affinity tie-break gains may occur without a strict primary gain. No early stopping is implied."
+        }
+      }
+    }
+  },
+  "backend_semantics_match_parent": true,
+  "backend_contract_differences": [
+    {
+      "field": "hparams.save_dir",
+      "parent": "/workspace/DecompCond/runs/multi-style-v1/backend",
+      "validation": "/workspace/DecompCond/multi-style-agent-v2/technical-validation/contrast_feedback/backend"
+    },
+    {
+      "field": "resolved_args.save_dir",
+      "parent": "/workspace/DecompCond/runs/multi-style-v1/backend",
+      "validation": "/workspace/DecompCond/multi-style-agent-v2/technical-validation/contrast_feedback/backend"
+    }
+  ],
+  "evaluation_contract_identical_to_parent": true,
+  "validated_candidate_provenance": 14,
+  "source_archive_sha256": "a6b752ddda405c4031bb1ffb190ffff78079a00cff5be3cb11609ea35964dddc",
+  "scope": "Technical validation only; small samples do not establish molecular performance or skill superiority."
+}

@@ -65,6 +65,8 @@ def summarize(path, attempts, library, seeds=None):
         ),
         structure_pass_count=len(valid),
         exact_recovery_count=sum(bool(a.get("exact_recovery")) for a in attempts),
+        qualified_exact_recovery_count=sum(bool(a.get("exact_recovery")) for a in valid),
+        qualified_recovery=distribution([a["effective_recovery"] for a in valid]),
         J=statistics.mean(a["effective_recovery"] for a in attempts),
         valid_delta_pic50=distribution([a["delta_pic50"] for a in valid]),
         distributions={
@@ -172,7 +174,7 @@ def best_record(records):
     )
 
 
-def build_feedback(history, library, round_number, enhanced=False):
+def build_feedback(history, library, round_number, enhanced=False, contrast=False):
     base = history["baseline"]
     rounds = history["rounds"]
     previous = rounds[-1]["records"] if rounds else [base]
@@ -265,4 +267,10 @@ def build_feedback(history, library, round_number, enhanced=False):
         from .planning_evidence import enhance_feedback
 
         enhance_feedback(result, all_records, previous, library)
+    if contrast:
+        if not enhanced:
+            raise TechnicalFailure("contrast feedback requires enhanced feedback")
+        from .contrast_feedback import enrich_contrast_feedback
+
+        enrich_contrast_feedback(result, history, library)
     return result

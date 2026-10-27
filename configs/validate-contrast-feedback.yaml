@@ -1,0 +1,8 @@
+base_config: multi-style-agent-v2.yaml
+output_dir: /workspace/DecompCond/multi-style-agent-v2/technical-validation
+parent_run: /workspace/DecompCond/runs/multi-style-v1
+baseline_seeds: [51000, 51001]
+agent_seeds: [51002]
+agent_variant: contrast_feedback
+variants:
+  contrast_feedback: []

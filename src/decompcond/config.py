@@ -116,11 +116,14 @@ class AgentConfig(Strict):
     thinking: dict[str, Any]
     system_prompt: str
     enhanced_feedback: bool
+    contrast_feedback: bool = False
     guidance_file: str | None
     guidance_sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
 
     @model_validator(mode="after")
     def guidance_binding(self):
+        if self.contrast_feedback and not self.enhanced_feedback:
+            raise ValueError("contrast feedback requires enhanced discovery feedback")
         if bool(self.guidance_file) != bool(self.guidance_sha256):
             raise ValueError("guidance requires both a file and its SHA-256")
         return self

@@ -40,6 +40,7 @@ if __name__ == "__main__":
         library,
         len(history["rounds"]) + 1,
         enhanced=config.agent.enhanced_feedback,
+        contrast=config.agent.contrast_feedback,
     )
     paths = DeepSeekPlanner(config).propose(library, feedback, previous, output)
     new_records = [

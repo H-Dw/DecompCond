@@ -48,3 +48,22 @@ def test_path_tie_break_affinity():
 def test_first_activation_and_release_are_not_reentries():
     path = {"expanded": [["C1"], ["C1"], [], ["C2"], ["C1", "C2"], [], ["C2"]]}
     assert reentry_steps(path) == {4, 6}
+
+
+def test_joint_success_and_score_decomposition_keep_rejected_exact_attempts():
+    path = {"id": "x", "schedule_hash": "x", "expanded": [[]]}
+    accepted = dict(status="evaluated", structure_pass=True, exact_recovery=True,
+                    effective_recovery=1.0, delta_pic50=-1.0,
+                    condition_metrics={}, pb_checks={})
+    rejected = dict(accepted, structure_pass=False, effective_recovery=0.0, delta_pic50=None)
+    failed = dict(rejected, status="chemical_invalid", exact_recovery=False)
+    summary = summarize(path, [accepted, rejected, failed], {"groups": {}})
+    assert summary["exact_recovery_count"] == 2
+    assert summary["qualified_exact_recovery_count"] == 1
+    assert summary["qualified_recovery"]["n"] == 1
+    assert summary["J"] == pytest.approx(
+        summary["structure_pass_count"] / summary["attempts"] * summary["qualified_recovery"]["mean"]
+    )
+    no_pass = summarize(path, [rejected, failed], {"groups": {}})
+    assert no_pass["J"] == 0 and no_pass["qualified_exact_recovery_count"] == 0
+    assert no_pass["qualified_recovery"]["n"] == 0 and no_pass["qualified_recovery"]["mean"] is None

@@ -2,7 +2,7 @@
 
 当前架构、条件组合与冻结 LLM 规划文献的差异：[架构与文献对照](docs/architecture-literature-comparison.zh-CN.md)。
 
-最新完整周期分析、MULTI 风格配对验证与下一周期设计：[Auto research 02](research-cycles/cycle02.zh-CN.md)。更早周期见 [Auto research 01](research-cycles/cycle01.zh-CN.md)。
+最新完整周期分析与 Agent 改进：[Auto research 03](research-cycles/cycle03.zh-CN.md)。此前见 [Auto research 02](research-cycles/cycle02.zh-CN.md) 与 [Auto research 01](research-cycles/cycle01.zh-CN.md)。
 
 冻结 FLOWR.ROOT，在推理的不同时间段启用、撤下、重入和组合 PLIP 子条件，并由 LLM 根据上一轮完整结果规划下一轮。
 
@@ -13,6 +13,8 @@
 新增 [`configs/multi-style.yaml`](configs/multi-style.yaml)：已知原子网络时间 0.999、全局积分终点 0.999、初始自条件坐标缓存为零，直接返回最后一次循环预测，不追加末端前向。100 次更新对应 100 次前向（recycle=1）。仍使用 ROOT 权重和积分器；[采样合同与中文伪代码说明](docs/multi-style.zh-CN.md)。历史配置保留原行为，新方法必须使用独立运行目录。
 
 该配置覆盖完整 Agent 搜索，静态基线、动态路径和独立确认共用同一采样器。每次 Agent 请求包含带哈希的时间与读出合同；新指引解释末段激活、提前释放、条件暴露量对照及教师间历史隔离。Agent 只能修改组合路径。
+
+[`configs/multi-style-agent-v2.yaml`](configs/multi-style-agent-v2.yaml) 增加配置控制的联合成功反馈、主分数进展和历史等暴露对照；新指引按内容哈希进入真实规划请求。科学评价与上述采样一致。[设计与中文伪代码](docs/contrast-feedback.zh-CN.md)。
 
 评价加速配置：[`configs/evaluation-v2.yaml`](configs/evaluation-v2.yaml)。4 个独立 CPU 进程执行评价，保留全部 PoseBusters 检查；搜索阶段每路径预定抽样 5/20 进行 PLIP，基线与独立确认全量评价。恢复合同及中文伪代码见 [评价 v2](docs/evaluation-v2.zh-CN.md)。
 
@@ -29,7 +31,7 @@
 
 ## 配置与预算
 
-`configs/defaults.yaml` 是正式配置。实验参数均由配置注入，支持继承和命令行覆盖。两位教师分别维护历史；发现阶段复用种子，确认种子独立。
+`configs/defaults.yaml` 保存基础参数；本周期使用 `configs/multi-style-agent-v2.yaml`。实验参数均由配置注入，支持继承和命令行覆盖。两位教师分别维护历史；发现阶段复用种子，确认种子独立。
 
 | 项目 | 每位教师 | 两位教师 |
 |---|---:|---:|

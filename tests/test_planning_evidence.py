@@ -126,3 +126,33 @@ def test_guidance_hash_and_actual_input(config, tmp_path):
         planner.propose({"groups": {}, "atoms": {}, "bonds": {}}, {}, {}, folder)
     with pytest.raises(TechnicalFailure, match="checksum"):
         DeepSeekPlanner(config)
+
+
+def test_contrast_feedback_matches_duration_and_tracks_primary_plateau():
+    base, a, b = record("baseline", [.5, .5]), record("a", [1, 1]), record("b", [1, 1], True)
+    history = dict(baseline=base, rounds=[dict(round=1, records=[a]), dict(round=2, records=[b])],
+                   confirmation={"UNSEEN_CONFIRMATION": "excluded"})
+    before = copy.deepcopy(history)
+    result = build_feedback(history, {"groups": {"C1": {}, "C2": {}}}, 3, enhanced=True, contrast=True)
+    assert result["search_progress"]["last_strict_primary_improvement_round"] == 1
+    assert result["search_progress"]["rounds_since_strict_primary_improvement"] == 1
+    match = result["matched_history_contrasts"]["b"]
+    assert match["reference_id"] == "a" and match["eligible_references"] == 2
+    assert match["schedule"]["same_per_condition_exposure"]
+    assert match["paired"]["n"] == 2 and match["paired"]["mean_delta_J"] == 0
+    assert result["success_decomposition"]["b"]["qualified_exact_recovery_count"] == 2
+    assert "UNSEEN_CONFIRMATION" not in json.dumps(result) and history == before
+
+
+def test_contrast_feedback_does_not_invent_legacy_joint_counts_or_duration_match():
+    base, a = record("baseline", [1, 0]), record("a", [1, 0])
+    base["summary"].pop("qualified_exact_recovery_count")
+    base["summary"].pop("qualified_recovery")
+    a["summary"]["exposure"]["active_steps"]["C1"] += 10
+    result = build_feedback(dict(baseline=base, rounds=[dict(round=1, records=[a])]),
+                            {"groups": {"C1": {}, "C2": {}}}, 2, enhanced=True, contrast=True)
+    assert result["success_decomposition"]["baseline"]["qualified_exact_recovery_count"] is None
+    assert result["success_decomposition"]["baseline"]["availability"] == "unavailable_in_legacy_summary"
+    assert result["matched_history_contrasts"]["a"]["status"] == "no_equal_exposure_reference"
+    with pytest.raises(TechnicalFailure, match="requires enhanced"):
+        build_feedback(dict(baseline=base, rounds=[]), {"groups": {"C1": {}, "C2": {}}}, 1, contrast=True)

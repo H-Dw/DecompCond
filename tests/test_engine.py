@@ -94,6 +94,7 @@ def prepare(config, tmp_path):
 
 def test_ten_round_barriers_history_budget_holdout_and_resume(config, tmp_path):
     config.agent.enhanced_feedback = True
+    config.agent.contrast_feedback = True
     backend = Backend()
     evaluator = Eval()
     planner = Planner()
@@ -107,6 +108,8 @@ def test_ten_round_barriers_history_budget_holdout_and_resume(config, tmp_path):
         assert feedback["round"] == r and feedback["previous_round"] == r - 1
         assert len(feedback["previous_strategies"]) == (1 if r == 1 else 5)
         assert "confirmation" not in str(feedback["history_trend"])
+        assert feedback["feedback_version"] == "contrast-history-v2"
+        assert feedback["search_progress"]["completed_rounds"] == r - 1
     assert final["winner"].startswith("r1_")
     assert all(seed < 2000 for _, seed in backend.generated[:-40])
     assert all(seed >= 2000 for _, seed in backend.generated[-40:])

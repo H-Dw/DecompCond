@@ -54,6 +54,7 @@ search:
 partition: selected_connectivity
 agent:
   enhanced_feedback: false
+  contrast_feedback: false
   guidance_file: null
   guidance_sha256: null
   base_url: https://api.deepseek.com
