@@ -152,3 +152,38 @@ def test_changed_backend_cannot_overwrite_saved_contract(config, tmp_path):
     with pytest.raises(TechnicalFailure):
         engine.run([prepared], baseline_only=True)
     assert path.read_bytes() == before
+
+
+def test_parallel_failure_does_not_start_next_round_or_resample(config, tmp_path):
+    config.search.rounds = 2
+
+    class BatchEval(Eval):
+        def evaluate_many(self, jobs, prepared, library, policy):
+            for job, result in jobs:
+                if self.fail and result["path"] != "baseline" and self.evaluated > 22:
+                    raise TechnicalFailure("isolated worker error")
+                yield (
+                    job,
+                    result,
+                    super().evaluate(result, prepared, library, job["folder"]),
+                )
+
+    backend, evaluator, planner = Backend(), BatchEval(), Planner()
+    # Fail only after some round-one results have been committed.
+    original = evaluator.evaluate_many
+
+    def interrupted(jobs, *args):
+        for item in original(jobs, *args):
+            if item[1]["path"] != "baseline" and evaluator.evaluated == 23:
+                raise TechnicalFailure("worker died")
+            yield item
+
+    evaluator.evaluate_many = interrupted
+    prepared = prepare(config, tmp_path)
+    engine = Experiment(config, backend, evaluator, planner)
+    with pytest.raises(TechnicalFailure):
+        engine.run([prepared])
+    assert len(planner.inputs) == 1 and len(backend.generated) == 120
+    evaluator.evaluate_many = original
+    engine.run([prepared])
+    assert len(backend.generated) == 260 and len(planner.inputs) == 2

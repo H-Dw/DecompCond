@@ -145,13 +145,19 @@ class Evaluator:
         self.backend = backend
         self.pb_config = yaml.safe_load(Path(config.evaluation.pb_config).read_text())
         self.pb = PoseBusters(config=copy.deepcopy(self.pb_config))
+        if config.evaluation.fast_volume_overlap:
+            from .fast_posebusters import make_posebusters
+
+            self.pb = make_posebusters(copy.deepcopy(self.pb_config))
         self.teacher_scores = {}
+        self._pool = None
         self.contract = dict(
             rdkit=rdBase.rdkitVersion,
             numpy=np.__version__,
             openbabel=openbabel.OBReleaseVersion(),
             plip=plip_config.__version__,
             sources={},
+            policy=config.evaluation.model_dump(),
         )
         for name in ("posebusters", "plip"):
             package_root = Path(importlib.import_module(name).__file__).parent
@@ -179,11 +185,7 @@ class Evaluator:
             )
         return self.teacher_scores[key]
 
-    def evaluate(self, result, prepared, library, folder):
-        from rdkit import Chem
-
-        folder = Path(folder)
-        c = self.config.evaluation
+    def prepare_input(self, result):
         if result["status"] == "generation_failure":
             return dict(
                 status="generation_failure",
@@ -225,6 +227,59 @@ class Evaluator:
         raw_xyz = world["coords"][0].numpy()
         if not np.allclose(original_xyz, raw_xyz, rtol=0, atol=0):
             raise TechnicalFailure("decoder changed raw coordinates")
+        return mol
+
+    def evaluate(self, result, prepared, library, folder, diagnostics=None):
+        mol = self.prepare_input(result)
+        if isinstance(mol, dict):
+            return annotate_failure(mol, diagnostics, self.config)
+        report = self.evaluate_molecule(
+            mol, result, prepared, library, folder, diagnostics
+        )
+        return self.finish_affinity(report, mol, prepared)
+
+    def evaluate_many(self, jobs, prepared, library, diagnostics):
+        from .parallel_evaluation import evaluate_many
+
+        yield from evaluate_many(self, jobs, prepared, library, diagnostics)
+
+    def close(self):
+        if self._pool is not None:
+            self._pool.shutdown(wait=True, cancel_futures=True)
+            self._pool = None
+
+    def finish_affinity(self, report, mol, prepared):
+        if report["status"] != "evaluated":
+            return report
+        if (
+            self.config.evaluation.score_only_structure_pass
+            and not report["structure_pass"]
+        ):
+            report.update(
+                pic50=None,
+                delta_pic50=None,
+                pic50_status="not_computed_by_policy_structure_failed",
+            )
+        else:
+            score = self.backend.score_molecule(mol, prepared)
+            report.update(
+                pic50=score,
+                delta_pic50=score - self.teacher_score(prepared),
+                pic50_status="measured",
+            )
+        return report
+
+    def evaluate_molecule(
+        self, mol, result, prepared, library, folder, diagnostics=None
+    ):
+        from rdkit import Chem
+        import time
+
+        started = time.perf_counter()
+        timings = {}
+        folder = Path(folder)
+        c = self.config.evaluation
+        original_xyz = np.array(mol.GetConformer().GetPositions(), copy=True)
         slots = {int(k): v for k, v in result["slots"].items()}
         xyz = original_xyz
         z = [a.GetAtomicNum() for a in mol.GetAtoms()]
@@ -268,6 +323,8 @@ class Evaluator:
         rb = sum(edge_hits.values()) / len(edge_hits) if edge_hits else None
         # No selected bonds: no fabricated bond successes; use atom recovery.
         recovery = c.atom_weight * rz + c.bond_weight * rb if rb is not None else rz
+        timings["reconstruction"] = time.perf_counter() - started
+        started = time.perf_counter()
         frame = self.pb.bust(
             mol, mol_cond=prepared["files"]["evaluation_protein"], full_report=False
         )
@@ -285,16 +342,23 @@ class Evaluator:
             and len(Chem.GetMolFrags(mol)) == 1
             and all(a.GetNumRadicalElectrons() == 0 for a in mol.GetAtoms())
         )
-        score = self.backend.score_molecule(mol, prepared)
+        timings["posebusters"] = time.perf_counter() - started
+        started = time.perf_counter()
         energy = strain_energy(mol, c)
+        timings["strain"] = time.perf_counter() - started
         from .plip import plip_profile
 
-        profile = plip_profile(
-            mol, prepared["files"]["evaluation_protein"], folder / "plip", c.plip
-        )
-        plip = interaction_recovery(
-            library["reference_interactions"], profile["interactions"], slots
-        )
+        selected = diagnostics is None or diagnostics["plip_selected"]
+        plip = None
+        started = time.perf_counter()
+        if selected:
+            profile = plip_profile(
+                mol, prepared["files"]["evaluation_protein"], folder / "plip", c.plip
+            )
+            plip = interaction_recovery(
+                library["reference_interactions"], profile["interactions"], slots
+            )
+        timings["plip"] = time.perf_counter() - started
         displacement = np.array(
             [xyz[slots[int(i)]] - a["xyz"] for i, a in library["atoms"].items()]
         )
@@ -321,11 +385,16 @@ class Evaluator:
             recovery=recovery,
             effective_recovery=recovery if structural else 0.0,
             exact_recovery=all(atom_hits.values()) and all(edge_hits.values()),
-            pic50=score,
-            delta_pic50=score - self.teacher_score(prepared),
+            pic50=None,
+            delta_pic50=None,
+            pic50_status="pending_parent_scoring",
             pb_checks=checks,
             strain=energy,
             plip=plip,
+            plip_status="measured" if selected else "not_selected_by_policy",
+            diagnostics=diagnostics,
+            evaluation_protocol=c.protocol_version,
+            timing_seconds=timings,
             atom_hits=atom_hits,
             bond_hits=edge_hits,
             bond_evidence=bond_evidence,
@@ -342,3 +411,14 @@ class Evaluator:
             raw_sha256=result["raw_sha256"],
             trace=result.get("trace", []),
         )
+
+
+def annotate_failure(report, diagnostics, config):
+    report.update(
+        pic50=None,
+        pic50_status="not_applicable_" + report["status"],
+        plip_status="not_applicable_" + report["status"],
+        diagnostics=diagnostics,
+        evaluation_protocol=config.evaluation.protocol_version,
+    )
+    return report

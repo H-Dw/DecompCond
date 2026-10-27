@@ -1,0 +1,11 @@
+extends: defaults.yaml
+data:
+  output_dir: /workspace/DecompCond/runs/feedback10-evaluation-v2
+evaluation:
+  protocol_version: tiered-v2
+  workers: 4
+  worker_threads: 8
+  fast_volume_overlap: true
+  score_only_structure_pass: true
+  plip_sampling: seed_strata_v1
+  plip_samples_per_path: 5

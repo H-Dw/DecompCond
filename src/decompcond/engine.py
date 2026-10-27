@@ -17,6 +17,7 @@ def algorithm_identity():
 
 from .paths import constant_path, validate_batch
 from .feedback import summarize, build_feedback, best_record
+from .evaluation_policy import diagnostic_plan
 
 
 @contextmanager
@@ -93,6 +94,36 @@ class Experiment:
             for p in paths:
                 sub = folder / p["id"] / str(seed)
                 jobs.append(dict(path=p, seed=seed, folder=str(sub)))
+        complete_file = folder / "complete.json"
+        if complete_file.exists():
+            complete = read_json(complete_file)
+            if complete["identity_hash"] != digest(identity):
+                raise TechnicalFailure("completed stage identity mismatch")
+            for job in jobs:
+                generated = read_json(Path(job["folder"]) / "generated.json")
+                report = read_json(Path(job["folder"]) / "evaluation.json")
+                if report.get("source_result_hash") != digest(generated):
+                    raise TechnicalFailure("completed evaluation source changed")
+                if (
+                    generated.get("raw_path")
+                    and file_digest(generated["raw_path"]) != generated["raw_sha256"]
+                ):
+                    raise TechnicalFailure("completed raw artifact changed")
+            records = complete["records"]
+            if len(records) != len(paths) or any(
+                record["path"] != path or record["summary"]["attempts"] != len(seeds)
+                for record, path in zip(records, paths)
+            ):
+                raise TechnicalFailure("completed stage accounting mismatch")
+            # Imported completed stages retain original feedback and policy.
+            return records
+        policy = diagnostic_plan(
+            self.config, prepared["teacher"]["id"], stage_id, seeds
+        )
+        policy_file = folder / "evaluation_plan.json"
+        if policy_file.exists() and read_json(policy_file) != policy:
+            raise TechnicalFailure("diagnostic sampling changed on resume")
+        write_json(policy_file, policy)
         pending = [
             j for j in jobs if not (Path(j["folder"]) / "generated.json").exists()
         ]
@@ -115,6 +146,39 @@ class Experiment:
                 ),
             )
         # A separate barrier ensures no Agent sees a partial strategy table.
+        if hasattr(self.evaluator, "evaluate_many"):
+            pending_evaluations = []
+            completed = 0
+            for job in jobs:
+                output = Path(job["folder"])
+                result = read_json(output / "generated.json")
+                if (
+                    result.get("raw_path")
+                    and file_digest(result["raw_path"]) != result["raw_sha256"]
+                ):
+                    raise TechnicalFailure("saved raw output changed on resume")
+                if (output / "evaluation.json").exists():
+                    if read_json(output / "evaluation.json").get(
+                        "source_result_hash"
+                    ) != digest(result):
+                        raise TechnicalFailure("saved evaluation source changed")
+                    completed += 1
+                else:
+                    pending_evaluations.append((job, result))
+            for job, result, evaluated in self.evaluator.evaluate_many(
+                pending_evaluations, prepared, library, policy
+            ):
+                evaluated["source_result_hash"] = digest(result)
+                write_json(Path(job["folder"]) / "evaluation.json", evaluated)
+                completed += 1
+                write_json(
+                    folder / "progress.json",
+                    dict(phase="evaluation", attempts=len(jobs), evaluated=completed),
+                )
+            if completed != len(jobs):
+                raise TechnicalFailure(
+                    "evaluation barrier did not account for every attempt"
+                )
         for index, job in enumerate(jobs):
             output = Path(job["folder"])
             report = output / "evaluation.json"
@@ -323,3 +387,6 @@ class Experiment:
                     ),
                 )
                 raise
+            finally:
+                if hasattr(self.evaluator, "close"):
+                    self.evaluator.close()

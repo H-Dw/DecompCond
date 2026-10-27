@@ -110,6 +110,14 @@ backend:
     cat_noise_euler_guard: false
     sc_recycle_steps: 1
 evaluation:
+  protocol_version: full-v1
+  workers: 1
+  worker_threads: 2
+  fast_volume_overlap: false
+  score_only_structure_pass: false
+  plip_sampling: full
+  plip_samples_per_path: 5
+  plip_sampling_salt: decompcond-plip-v1
   atom_weight: 0.5
   bond_weight: 0.5
   connectivity_factor: 1.3

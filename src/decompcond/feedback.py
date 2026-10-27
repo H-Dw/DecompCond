@@ -49,6 +49,11 @@ def summarize(path, attempts, library):
             "invalid recovery score; do not conceal a missing metric"
         )
     valid = [a for a in attempts if a["structure_pass"]]
+    if any(
+        a.get("delta_pic50") is None or not math.isfinite(a["delta_pic50"])
+        for a in valid
+    ):
+        raise TechnicalFailure("qualified attempt is missing required affinity")
     reentries = reentry_steps(path)
     result = dict(
         path_id=path["id"],
@@ -90,6 +95,30 @@ def summarize(path, attempts, library):
         ),
         plip_recall=distribution(
             [a["plip"]["recall"] for a in attempts if a.get("plip")]
+        ),
+        plip_sampling=dict(
+            selected_attempts=sum(
+                a.get("diagnostics", {}).get("plip_selected", bool(a.get("plip")))
+                for a in attempts
+                if a.get("diagnostics") is not None
+            ),
+            measured_attempts=sum(a.get("plip") is not None for a in attempts),
+            statuses=dict(
+                Counter(a.get("plip_status", "legacy_full_policy") for a in attempts)
+            ),
+            rules=sorted(
+                {
+                    (a.get("diagnostics") or {}).get("rule", "legacy_full")
+                    for a in attempts
+                }
+            ),
+            interpretation="Recall distribution is conditional on sampled, chemically evaluable attempts; missing values are not zero",
+        ),
+        evaluation_protocols=dict(
+            Counter(a.get("evaluation_protocol", "full-v1") for a in attempts)
+        ),
+        affinity_statuses=dict(
+            Counter(a.get("pic50_status", "legacy") for a in attempts)
         ),
         reentry_displacement_A=distribution(
             [
@@ -219,4 +248,10 @@ def build_feedback(history, library, round_number):
         evidence_ids=["condition_library"] + list(evidence),
         evidence=evidence,
         scope="Discovery only; confirmation outcomes are never included",
+        diagnostic_guidance=(
+            "PLIP may use a preregistered seed-stratified sample. Compare measured n and selection rules, "
+            "not maxima; unselected/chemically invalid values are missing, not zero. "
+            "Imported full-v1 rounds used full PLIP. Structure-failed affinity may be skipped by policy. "
+            "Acceptance and J remain unchanged; do not infer improvement from a sampling-policy change."
+        ),
     )

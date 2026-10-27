@@ -6,6 +6,8 @@
 
 ## 当前实现
 
+评价加速配置：[`configs/evaluation-v2.yaml`](configs/evaluation-v2.yaml)。4 个独立 CPU 进程执行评价，保留全部 PoseBusters 检查；搜索阶段每路径预定抽样 5/20 进行 PLIP，基线与独立确认全量评价。恢复合同及中文伪代码见 [评价 v2](docs/evaluation-v2.zh-CN.md)。
+
 - 配置驱动的来源核验、按 `node_id` 提取教师、真实 PLIP、稳定原子 ID 和条件划分。
 - 冻结 ROOT 适配器、逐候选掩码、逐原子网络时间、原生积分器、独立候选随机流。
 - 默认 **10 轮 × 5 条路径 × 20 次尝试**；每条轨迹 100 次更新，区段长度为 10 的倍数。

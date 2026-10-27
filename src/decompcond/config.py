@@ -132,6 +132,14 @@ class PlipConfig(Strict):
 
 
 class Evaluation(Strict):
+    protocol_version: str
+    workers: int = Field(gt=0)
+    worker_threads: int = Field(gt=0)
+    fast_volume_overlap: bool
+    score_only_structure_pass: bool
+    plip_sampling: Literal["full", "seed_strata_v1"]
+    plip_samples_per_path: int = Field(gt=0)
+    plip_sampling_salt: str
     atom_weight: float = Field(gt=0)
     bond_weight: float = Field(gt=0)
     connectivity_factor: float = Field(gt=0)
