@@ -10,6 +10,8 @@
 
 新增 [`configs/multi-style.yaml`](configs/multi-style.yaml)：已知原子网络时间 0.999、全局积分终点 0.999、初始自条件坐标缓存为零，直接返回最后一次循环预测，不追加末端前向。100 次更新对应 100 次前向（recycle=1）。仍使用 ROOT 权重和积分器；[采样合同与中文伪代码说明](docs/multi-style.zh-CN.md)。历史配置保留原行为，新方法必须使用独立运行目录。
 
+该配置覆盖完整 Agent 搜索，静态基线、动态路径和独立确认共用同一采样器。每次 Agent 请求包含带哈希的时间与读出合同；新指引解释末段激活、提前释放、条件暴露量对照及教师间历史隔离。Agent 只能修改组合路径。
+
 评价加速配置：[`configs/evaluation-v2.yaml`](configs/evaluation-v2.yaml)。4 个独立 CPU 进程执行评价，保留全部 PoseBusters 检查；搜索阶段每路径预定抽样 5/20 进行 PLIP，基线与独立确认全量评价。恢复合同及中文伪代码见 [评价 v2](docs/evaluation-v2.zh-CN.md)。
 
 - 配置驱动的来源核验、按 `node_id` 提取教师、真实 PLIP、稳定原子 ID 和条件划分。

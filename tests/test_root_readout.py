@@ -7,6 +7,7 @@ import pytest
 torch = pytest.importorskip("torch")
 from decompcond.backends.root import RootBackend
 from decompcond.inpainting import network_times
+from decompcond.sampling_contract import planning_sampling_contract
 
 
 def adapter(config, mutate_prediction=False, fail_final_step=False):
@@ -80,6 +81,7 @@ def test_multi_style_returns_last_raw_prediction_with_exact_forward_budget(confi
     config.sampling.initial_self_condition_coords = "zeros"
     result, calls, steps = run(config, tmp_path, mutate_prediction=True)
     assert len(calls) == len(steps) == result["nfe"] == result["updates"] == 100
+    assert result["sampling_contract_sha256"] == planning_sampling_contract(config)["sha256"]
     assert result["readout_global_time"] == pytest.approx(0.98901, abs=2e-6)
     assert sum(delta for _, delta in steps) == pytest.approx(0.999)
     assert torch.count_nonzero(calls[0]["cache_coords"]) == 0

@@ -35,6 +35,32 @@ python -m decompcond.cli validate --config configs/multi-style.yaml
 
 详细流程见主设计文档 Algorithm 5；它显式分开 `last_prediction` 与 `extra_prediction` 两个分支。
 
+## 用于 Agent 条件生成的合同
+
+新配置用于完整 `experiment`，并非只用于 `baseline`。静态基线、每轮全部 Agent 路径、独立确认都调用同一个 `RootBackend.generate_batch`，读取相同配置。Agent 不选择已知时间或读出方式；它只提出每个更新窗口的活动子条件集合。
+
+每次规划输入新增 `sampling_contract`：包含配置派生的时间表、已知时间、初始缓存、读出规则、前向次数和每个允许窗口对应的预测时间。该合同带哈希，保存在实际 Agent 请求、后端合同和每次生成结果中；条件库哈希也随请求保存。指引 `skills/path-planning-multi/SKILL.md` 由新配置按内容哈希加载，旧周期的指引与哈希不变。
+
+末段规划需要区分两个动作：`[90,100)` 的活动条件会在第 99 步预测前写入，所以能够影响返回的 clean 预测；该步积分之后的参考覆盖则不会再影响返回结果。末段为空时，模型仍保留此前生成状态和预测缓存，只停止覆盖条件；它不是重新采样，也不是完全遗忘条件。
+
+因此应让 Agent 对比“末段保持／重入条件”和“提前释放条件”的竞争假设，而不预设哪种必胜。保持条件可能有利于原子和键恢复，释放条件可能帮助周围结构调整，二者都需要以实际三维评价检验。比较末段时尽量匹配总激活时长，或明确说明暴露量同时改变。采样协议更换后，两位教师各自先获得新协议下的基线，再进行独立的十轮搜索；旧协议结果不当作本轮基线，确认结果不进入规划输入。
+
+```text
+ 1  contract ← DescribeFrozenSampling(config)                       ▷ 固定时间、读出、缓存规则；Agent 无权修改
+ 2  baseline ← GenerateAndEvaluate(ConstantAllConditions,contract)   ▷ 使用新协议建立该教师自己的基线
+ 3  history ← Initialize(baseline)
+ 4  for round = 1, …, config.search.rounds do
+ 5      feedback ← SummarizeAllPreviousStrategies(history)           ▷ 等待上一轮全部评价完成
+ 6      paths ← Agent.Plan(conditions,contract,feedback,guidance)     ▷ 一次提出全部完整路径
+ 7      ValidateAndFreeze(paths,contract,conditions)
+ 8      results ← GenerateAndEvaluateAll(paths,contract)             ▷ 所有候选使用同一 ROOT 采样合同
+ 9      AppendRound(history,results)                                ▷ 保存失败，不用条件注入标签替代恢复评价
+10  winner ← SelectAcrossAllRounds(history)
+11  ConfirmWithFreshSeeds(winner,ConstantAllConditions,contract)     ▷ 确认不再回传给本次 Agent
+```
+
 ## 已完成验证
 
 2026-10-27：本地测试 50 passed、4 skipped；远端独立源码目录的真实 PyTorch/化学依赖环境测试 62 passed。新增测试执行适配器真实循环、替换模型为可核查的合成预测器，确认 100/101 次前向分支、最后预测时间、初始缓存、局部时间与全局积分时间隔离、积分器修改张量时原始读出不变，以及最后一步失败不被隐藏。测试没有加载 ROOT 权重，也没有新增真实分子生成尝试；不能据此声称基线结构有效率已经提高。
+
+同日完成 Agent 接入验证：远端全套测试 65 passed。新增检查覆盖配置派生时间合同、非默认步数和 recycle 次数、真实规划请求构造与新技能文件哈希，以及生成输出记录的同一采样合同哈希。API 响应使用测试替身，本次真实 Agent API 调用数和真实 ROOT 生成数均为零；实际规划效果仍需新协议下的完整实验。

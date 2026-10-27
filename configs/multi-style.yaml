@@ -10,3 +10,6 @@ sampling:
   initial_self_condition_coords: zeros
   final_epsilon: null
   confirmation_seed_start: 4000
+agent:
+  guidance_file: skills/path-planning-multi/SKILL.md
+  guidance_sha256: c2473cfc1241e576a9c72794c84aaa6a59801d5f0d195a77afac5a2766f9d76b

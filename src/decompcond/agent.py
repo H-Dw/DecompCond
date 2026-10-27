@@ -8,6 +8,7 @@ from pathlib import Path
 from .credentials import read_credential
 from .io import TechnicalFailure, InvalidProposal, write_json, file_digest
 from .paths import validate_batch
+from .sampling_contract import planning_sampling_contract
 
 
 class DeepSeekPlanner:
@@ -78,6 +79,8 @@ class DeepSeekPlanner:
             "steps": c.sampling.steps,
             "segment_multiple": c.sampling.segment_multiple,
             "path_count": c.search.paths_per_round,
+            "sampling_contract": planning_sampling_contract(c),
+            "condition_library_hash": library.get("hash"),
             "feedback": feedback,
         }
         if self.guidance is not None:

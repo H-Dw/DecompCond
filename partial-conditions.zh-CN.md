@@ -123,33 +123,35 @@ S_n^{in}=P_{A_n}(S_n),\quad
 
 ### Algorithm 2 — 从完整反馈策划整轮路径
 
-**Require:** 发现历史 \(H\)、固定条件库 \(C\)、轮次 \(r\)、配置 \(K\)。
+**Require:** 当前教师的发现历史 `history`、固定条件库 `conditions`、轮次 `round`、配置 `config`。
 
 **Ensure:** 恰好配置数量的合法新路径，或有限修订后失败；无生成调用。
 
 ```text
- 1  previous ← Baseline(H) if r=1 else AllStrategies(H, r−1)         ▷ 不遗漏上一轮失败策略
+ 1  previous ← Baseline(history) if round=1 else AllStrategies(history,round−1)
  2  VerifyAttemptAccounting(previous)                              ▷ 成功、化学无效、生成失败覆盖计划尝试
- 3  table ← SummarizeEveryStrategy(previous)                        ▷ 数量、分布、J、有效 ΔpIC50
- 4  defects ← SummarizeConditionsAndFailures(previous,C)             ▷ 分模块原子/键、PoseB、应变、PLIP
+ 3  table ← SummarizeEveryStrategy(previous)                        ▷ 数量、分布、路径有效恢复得分、有效 ΔpIC50
+ 4  defects ← SummarizeConditionsAndFailures(previous,conditions)    ▷ 分模块原子/键、结构检查、应变、PLIP
  5  transitions ← SummarizeExposureAndReentry(previous)              ▷ 组合顺序与暴露时长分别统计
- 6  historical ← CompressDiscoveryHistory(H)                        ▷ 历史最佳、趋势、累计失败、已试路径
- 7  feedback ← PackageWithEvidenceIDs(table, defects, transitions,
-                                      historical, baseline)        ▷ 数值携带样本数与缺失状态
- 8  for repair = 0, …, K.proposal_repairs do                         ▷ 修订属于同一轮，不增加生成预算
- 9      proposal ← Agent.PlanCompleteBatch(feedback,K.path_count)    ▷ 一次提交全部路径、简短依据与可检验假设
-10      errors ← CheckSchemaAndGrid(proposal,K.steps,K.grid)         ▷ 全覆盖、无重叠、端点合法；允许空集合
-11      errors ← errors ∪ CheckIDsReferencesAndParents(proposal,C,H) ▷ 不能修改原子、XYZ、阈值或引入未知条件
-12      errors ← errors ∪ CheckExpandedDuplicates(proposal,H)        ▷ 等价逐步活动序列只执行一次
-13      if errors empty then return CompileAndFreeze(proposal)
-14      feedback ← AttachErrorsAndCachedResults(feedback,errors)     ▷ 重复路径反馈已有结果，不重新采样
-15  end for
-16  return FAILURE
+ 6  historical ← CompressDiscoveryHistory(history)                  ▷ 仅本教师、本采样协议的发现历史
+ 7  feedback ← PackageWithEvidenceIDs(table,defects,transitions,historical,Baseline(history))
+ 8  contract ← DescribeFrozenSampling(config)                       ▷ 明确局部时间、全局网格、末段读出及初始缓存
+ 9  guidance ← LoadAndVerifyPlanningGuidance(config)
+10  PersistPlanningInput(conditions,contract,feedback,guidance)       ▷ 保存实际输入及条件库、采样合同哈希
+11  for repair = 0, …, config.search.proposal_repairs do
+12      proposal ← Agent.PlanCompleteBatch(conditions,contract,feedback,guidance,config.search.paths_per_round)
+13      errors ← CheckSchemaAndGrid(proposal,config.sampling)        ▷ 全覆盖、无重叠、按更新索引；允许空集合
+14      errors ← errors ∪ CheckIDsReferencesAndParents(proposal,conditions,history)
+15      errors ← errors ∪ CheckExpandedDuplicates(proposal,history)  ▷ 不允许 Agent 更改采样合同或重复执行等价路径
+16      if errors empty then return CompileAndFreeze(proposal)
+17      feedback ← AttachErrorsAndCachedResults(feedback,errors)     ▷ 修订不增加轮次，不重新采样
+18  end for
+19  return FAILURE
 ```
 
 API 传输重试在 `Agent.PlanCompleteBatch` 内独立计数；HTTP 错误正文和凭据不写入日志。提案仅存行动 JSON 与 usage，不索要或记录隐藏推理过程。证据 ID 的存在性可自动核验，文字依据是否过度推断仍需审阅。
 
-实现：`agent.DeepSeekPlanner`、`paths.compile_path/validate_batch`、`feedback.build_feedback`。
+实现：`agent.DeepSeekPlanner`、`sampling_contract.planning_sampling_contract`、`paths.compile_path/validate_batch`、`feedback.build_feedback`。采样合同只读；静态基线、所有 Agent 路径与独立确认共用同一后端配置。
 
 ### Algorithm 3 — 精确来源与子条件编译
 

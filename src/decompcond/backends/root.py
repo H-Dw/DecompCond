@@ -12,6 +12,7 @@ import torch
 import torch.nn.functional as F
 from ..io import TechnicalFailure, file_digest, write_json
 from ..conditions import slot_map
+from ..sampling_contract import planning_sampling_contract
 from ..inpainting import (
     encode_payload,
     project,
@@ -153,6 +154,7 @@ class RootBackend:
             rng_policy="per-attempt forked RNG; same seed across paths",
             update_count=config.sampling.steps,
             final_forward_count=int(config.sampling.readout == "extra_prediction"),
+            planning_sampling_contract=planning_sampling_contract(config),
         )
 
     def pocket(self, prepared, batch_size):
@@ -238,6 +240,7 @@ class RootBackend:
     @torch.no_grad()
     def generate_batch(self, prepared, library, jobs):
         c = self.config
+        sampling_contract_hash = planning_sampling_contract(c)["sha256"]
         m = self.model
         bs = len(jobs)
         n = (
@@ -420,6 +423,7 @@ class RootBackend:
                         trace=traces[index],
                         condition_hash=library["hash"],
                         schedule_hash=job["path"]["schedule_hash"],
+                        sampling_contract_sha256=sampling_contract_hash,
                     )
                 )
                 continue
@@ -441,6 +445,7 @@ class RootBackend:
                     integration_end_time=c.sampling.integration_end_time,
                     known_network_time=c.sampling.known_time,
                     initial_self_condition_coords=c.sampling.initial_self_condition_coords,
+                    sampling_contract_sha256=sampling_contract_hash,
                     condition_hash=library["hash"],
                     schedule_hash=job["path"]["schedule_hash"],
                 )
