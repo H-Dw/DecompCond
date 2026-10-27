@@ -227,7 +227,7 @@ class Experiment:
                 read_json(folder / p["id"] / str(seed) / "evaluation.json")
                 for seed in seeds
             ]
-            summary = summarize(p, reports, library)
+            summary = summarize(p, reports, library, seeds=seeds)
             write_json(folder / p["id"] / "summary.json", summary)
             records.append(dict(path=p, summary=summary, stage=stage_id))
         write_json(
@@ -270,7 +270,9 @@ class Experiment:
         for r in range(1, c.search.rounds + 1):
             round_dir = teacher_dir / f"round_{r:03d}"
             frozen = round_dir / "plan.json"
-            feedback = build_feedback(history, library, r)
+            feedback = build_feedback(
+                history, library, r, enhanced=c.agent.enhanced_feedback
+            )
             write_json(round_dir / "feedback.json", feedback)
             expected = dict(
                 config_hash=c.fingerprint(),

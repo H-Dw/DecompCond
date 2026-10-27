@@ -1,5 +1,7 @@
 # DecompCond
 
+完整首轮结果与下一周期设计：[Auto research 01](research-cycles/cycle01.zh-CN.md)。
+
 冻结 FLOWR.ROOT，在推理的不同时间段启用、撤下、重入和组合 PLIP 子条件，并由 LLM 根据上一轮完整结果规划下一轮。
 
 条件是 **所选原子的元素 + 参考 XYZ + 选区内部已有共价键**。默认按选区连通分量拆分，另有 BRICS 投影。模型预测前和积分更新后联合 inpainting；输出使用未覆盖的最终预测。FLOWR.MULTI 仅提供方法启发，不是本项目生成后端。

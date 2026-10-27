@@ -4,14 +4,21 @@ from __future__ import annotations
 import json
 import time
 import httpx
+from pathlib import Path
 from .credentials import read_credential
-from .io import TechnicalFailure, InvalidProposal, write_json
+from .io import TechnicalFailure, InvalidProposal, write_json, file_digest
 from .paths import validate_batch
 
 
 class DeepSeekPlanner:
     def __init__(self, config):
         self.config = config
+        self.guidance = None
+        if config.agent.guidance_file:
+            path = Path(config.agent.guidance_file)
+            if file_digest(path) != config.agent.guidance_sha256:
+                raise TechnicalFailure("planner guidance checksum mismatch")
+            self.guidance = path.read_text(encoding="utf-8")
 
     def request(self, messages):
         c = self.config.agent
@@ -73,11 +80,20 @@ class DeepSeekPlanner:
             "path_count": c.search.paths_per_round,
             "feedback": feedback,
         }
+        if self.guidance is not None:
+            # Check again before each proposal: changing a file during a run
+            # must not silently change the planner's instructions.
+            if file_digest(c.agent.guidance_file) != c.agent.guidance_sha256:
+                raise TechnicalFailure("planner guidance changed during run")
+            request["planning_guidance"] = dict(
+                sha256=c.agent.guidance_sha256, content=self.guidance
+            )
         messages = [
             {"role": "system", "content": c.agent.system_prompt},
             {"role": "user", "content": json.dumps(request, ensure_ascii=False)},
         ]
         write_json(folder / "agent_input.json", request)
+        write_json(folder / "agent_messages.json", messages)
         for repair in range(c.search.proposal_repairs + 1):
             try:
                 content, meta = self.request(messages)

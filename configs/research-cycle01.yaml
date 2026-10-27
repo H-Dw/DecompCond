@@ -1,0 +1,9 @@
+extends: evaluation-v2.yaml
+data:
+  output_dir: /workspace/DecompCond/runs/research-cycle01
+sampling:
+  confirmation_seed_start: 3000
+agent:
+  enhanced_feedback: true
+  guidance_file: skills/path-planning/SKILL.md
+  guidance_sha256: 3c5cc0a66ca69c96f2c1de541631f4d2c50a98ffe495a0e6aad6c69501015764

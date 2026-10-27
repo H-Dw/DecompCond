@@ -32,7 +32,7 @@ def reentry_steps(path):
     return steps
 
 
-def summarize(path, attempts, library):
+def summarize(path, attempts, library, seeds=None):
     if not attempts or any(
         a.get("status") not in ("evaluated", "chemical_invalid", "generation_failure")
         for a in attempts
@@ -143,6 +143,12 @@ def summarize(path, attempts, library):
         result["condition_metrics"][group]["unavailable_attempts"] = len(
             attempts
         ) - len(rows)
+    if seeds is not None:
+        if len(seeds) != len(attempts) or len(set(seeds)) != len(seeds):
+            raise TechnicalFailure("seed accounting mismatch in summary")
+        result["seed_scores"] = {
+            str(seed): a["effective_recovery"] for seed, a in zip(seeds, attempts)
+        }
     return result
 
 
@@ -166,7 +172,7 @@ def best_record(records):
     )
 
 
-def build_feedback(history, library, round_number):
+def build_feedback(history, library, round_number, enhanced=False):
     base = history["baseline"]
     rounds = history["rounds"]
     previous = rounds[-1]["records"] if rounds else [base]
@@ -222,7 +228,7 @@ def build_feedback(history, library, round_number):
         }
         for r in previous
     }
-    return dict(
+    result = dict(
         round=round_number,
         previous_round=rounds[-1]["round"] if rounds else 0,
         previous_strategies=[
@@ -255,3 +261,8 @@ def build_feedback(history, library, round_number):
             "Acceptance and J remain unchanged; do not infer improvement from a sampling-policy change."
         ),
     )
+    if enhanced:
+        from .planning_evidence import enhance_feedback
+
+        enhance_feedback(result, all_records, previous, library)
+    return result

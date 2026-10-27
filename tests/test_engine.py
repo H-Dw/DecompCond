@@ -93,6 +93,7 @@ def prepare(config, tmp_path):
 
 
 def test_ten_round_barriers_history_budget_holdout_and_resume(config, tmp_path):
+    config.agent.enhanced_feedback = True
     backend = Backend()
     evaluator = Eval()
     planner = Planner()

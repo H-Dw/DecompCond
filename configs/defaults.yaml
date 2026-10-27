@@ -50,6 +50,9 @@ search:
   early_stop: false
 partition: selected_connectivity
 agent:
+  enhanced_feedback: false
+  guidance_file: null
+  guidance_sha256: null
   base_url: https://api.deepseek.com
   model: deepseek-flash
   credentials:

@@ -105,6 +105,15 @@ class AgentConfig(Strict):
     temperature: float | None
     thinking: dict[str, Any]
     system_prompt: str
+    enhanced_feedback: bool
+    guidance_file: str | None
+    guidance_sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+
+    @model_validator(mode="after")
+    def guidance_binding(self):
+        if bool(self.guidance_file) != bool(self.guidance_sha256):
+            raise ValueError("guidance requires both a file and its SHA-256")
+        return self
 
 
 class BackendConfig(Strict):
