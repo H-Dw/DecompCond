@@ -1,5 +1,7 @@
 # DecompCond
 
+当前架构、条件组合与冻结 LLM 规划文献的差异：[架构与文献对照](docs/architecture-literature-comparison.zh-CN.md)。
+
 最新完整周期分析、MULTI 风格配对验证与下一周期设计：[Auto research 02](research-cycles/cycle02.zh-CN.md)。更早周期见 [Auto research 01](research-cycles/cycle01.zh-CN.md)。
 
 冻结 FLOWR.ROOT，在推理的不同时间段启用、撤下、重入和组合 PLIP 子条件，并由 LLM 根据上一轮完整结果规划下一轮。
